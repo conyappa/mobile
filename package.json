@@ -34,7 +34,11 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "stylelint": "^13.12.0"
+    "stylelint": "^13.12.0",
+    "stylelint-config-react-native-styled-components": "^0.3.0",
+    "stylelint-config-standard": "^21.0.0",
+    "stylelint-processor-styled-components": "^1.10.0",
+    "stylelint-react-native": "^2.2.0"
   },
   "private": true
 }
