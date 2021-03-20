@@ -1,0 +1,23 @@
+name: checks
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+
+jobs:
+  linters:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Lint with ESLint and StyleLint
+        uses: wearerequired/lint-action@v1
+        with:
+          eslint: true
+          stylelint: true
