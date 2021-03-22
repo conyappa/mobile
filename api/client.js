@@ -12,7 +12,7 @@ if (Constants.manifest.extra.USE_LOCAL_SERVER) {
 }
 
 const client = axios.create({
-  baseURL: `${baseURL}/v1`,
+  baseURL,
   headers: {
     'Content-Type': 'application/json',
   },

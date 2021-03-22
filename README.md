@@ -34,5 +34,5 @@ To connect to the staging server you must set `USE_LOCAL_SERVER=false` and add t
 
 ### Local server
 
-First you must install and run [Con Yappa's backend](https://github.com/conyappa/backend). Then you must set `USE_LOCAL_SERVER=true` and add the corresponding `LOCAL_URL`. To obtain the local URL you should find out [computer's network IP address](https://lifehacker.com/how-to-find-your-local-and-external-ip-address-5833108). The local URL is `http://<computer-ip>:8000` if you're running the server on the `8000` port.
+First you must install and run [Con Yappa's backend](https://github.com/conyappa/backend). Then you must set `USE_LOCAL_SERVER=true` and add the corresponding `LOCAL_URL`. To obtain the local URL you should find out [computer's network IP address](https://lifehacker.com/how-to-find-your-local-and-external-ip-address-5833108). The local URL is `http://<computer-ip>:8000/v1` if you're running the server on the `8000` port.
 
