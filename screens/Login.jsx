@@ -24,23 +24,25 @@ export default function Login({ login }) {
             source={greenPigSource}
             resizeMode="contain"
           />
-          <StyledInput
-            onChangeText={setEmail}
-            value={email}
-            autoCapitalize="none"
-            placeholder="Email"
-            placeholderTextColor={COLORS.white}
-            selectionColor={COLORS.white}
-          />
-          <StyledInput
-            onChangeText={setPassword}
-            value={password}
-            autoCapitalize="none"
-            placeholder="Contraseña"
-            placeholderTextColor={COLORS.white}
-            selectionColor={COLORS.white}
-            secureTextEntry
-          />
+          <FormContainer>
+            <StyledInput
+              onChangeText={setEmail}
+              value={email}
+              autoCapitalize="none"
+              placeholder="Email"
+              placeholderTextColor={COLORS.white}
+              selectionColor={COLORS.white}
+            />
+            <StyledInput
+              onChangeText={setPassword}
+              value={password}
+              autoCapitalize="none"
+              placeholder="Contraseña"
+              placeholderTextColor={COLORS.white}
+              selectionColor={COLORS.white}
+              secureTextEntry
+            />
+          </FormContainer>
           <SpacedButton title="Iniciar Sesión" onPress={() => login(email, password)} />
         </Container>
       </ScrollableScreen>
@@ -62,6 +64,11 @@ const Container = styled.View`
   flex: 1;
   justify-content: center;
   ${StyleUtils.padded('lg')}
+`;
+
+const FormContainer = styled.View`
+  ${StyleUtils.spacedTop('lg')};
+  width: 100%;
 `;
 
 const SizedImage = styled.Image`
