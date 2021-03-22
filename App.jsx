@@ -1,9 +1,9 @@
 import React from 'react';
 
-import LoggedNavigator from './navigators/LoggedNavigator';
+import MainNavigator from './navigators/MainNavigator.jsx';
 
 export default function App() {
   return (
-    <LoggedNavigator />
+    <MainNavigator />
   );
 }
