@@ -1,9 +1,13 @@
 import React from 'react';
 
-import LoggedNavigator from './navigators/LoggedNavigator';
+import setupLocalization from './locales';
+
+import MainNavigator from './navigators/MainNavigator.jsx';
+
+setupLocalization();
 
 export default function App() {
   return (
-    <LoggedNavigator />
+    <MainNavigator />
   );
 }

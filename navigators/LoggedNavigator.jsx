@@ -2,6 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FontAwesome5, FontAwesome } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 
 import { COLORS, ICON_SIZES } from '../utils/styles';
 
@@ -27,14 +28,14 @@ function getTabBarIconFunction(IconComponent, name) {
   return tabBarIcon;
 }
 
-export default function LoggedNavigator() {
+export default function LoggedNavigator({ logout }) {
   return (
     <NavigationContainer>
       <Tab.Navigator
         tabBarOptions={{
           showLabel: false,
-          activeTintColor: COLORS.darkBlue,
-          inactiveTintColor: COLORS.gray,
+          activeTintColor: COLORS.blue,
+          inactiveTintColor: COLORS.gray500,
         }}
       >
         <Tab.Screen
@@ -67,12 +68,17 @@ export default function LoggedNavigator() {
         />
         <Tab.Screen
           name="Settings"
-          component={Settings}
           options={{
             tabBarIcon: getTabBarIconFunction(FontAwesome5, 'cog'),
           }}
-        />
+        >
+          {() => <Settings logout={logout} />}
+        </Tab.Screen>
       </Tab.Navigator>
     </NavigationContainer>
   );
 }
+
+LoggedNavigator.propTypes = {
+  logout: PropTypes.func.isRequired,
+};
