@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
 
+import I18n from 'i18n-js';
 import { COLORS, StyleUtils } from '../utils/styles';
 
 import AppText from '../components/AppText.jsx';
@@ -16,7 +17,7 @@ export default function Settings({ logout }) {
         onPress={logout}
         color={COLORS.red500}
       >
-        Cerrar sesión
+        { I18n.t(['session', 'logout']) }
       </SpacedLogout>
     </ScreenContainer>
   );

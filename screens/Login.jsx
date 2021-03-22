@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
 import { StatusBar } from 'expo-status-bar';
+import I18n from 'i18n-js';
 
 import { COLORS, StyleUtils } from '../utils/styles';
 
@@ -29,7 +30,7 @@ export default function Login({ login }) {
               onChangeText={setEmail}
               value={email}
               autoCapitalize="none"
-              placeholder="Email"
+              placeholder={I18n.t(['user', 'email'])}
               placeholderTextColor={COLORS.white}
               selectionColor={COLORS.white}
             />
@@ -37,13 +38,16 @@ export default function Login({ login }) {
               onChangeText={setPassword}
               value={password}
               autoCapitalize="none"
-              placeholder="Contraseña"
+              placeholder={I18n.t(['user', 'password'])}
               placeholderTextColor={COLORS.white}
               selectionColor={COLORS.white}
               secureTextEntry
             />
           </FormContainer>
-          <SpacedButton title="Iniciar Sesión" onPress={() => login(email, password)} />
+          <SpacedButton
+            title={I18n.t(['session', 'login'])}
+            onPress={() => login(email, password)}
+          />
         </Container>
       </ScrollableScreen>
     </SafeAreaView>
