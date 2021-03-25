@@ -2,13 +2,13 @@ import client from './client';
 
 const auth = {
   isLogged() {
-    return !!client.defaults.headers.common.Authentication;
+    return !!client.defaults.headers.common.Authorization;
   },
-  setToken({ token }) {
-    client.defaults.headers.common.Authentication = `Bearer ${token}`;
+  setToken(token) {
+    client.defaults.headers.common.Authorization = `Bearer ${token}`;
   },
   resetToken() {
-    delete client.defaults.headers.common.Authentication;
+    delete client.defaults.headers.common.Authorization;
   },
   login: (email, password) => client.post('login', { email, password }),
 };
