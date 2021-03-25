@@ -13,7 +13,10 @@ export default function AppText({ children, style }) {
 }
 
 AppText.propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
   style: PropTypes.arrayOf(PropTypes.object),
 };
 
