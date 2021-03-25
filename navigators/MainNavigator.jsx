@@ -10,8 +10,10 @@ function useSession() {
 
   function login(email, password) {
     api.auth.login(email, password)
-      .then(({ data: { token: responseToken } = {} }) => {
-        api.auth.setToken(responseToken);
+      .then(({ data: { token, id: userId } = {} }) => {
+        api.auth.setToken(token);
+        api.user.setId(userId);
+
         setIsLogged(api.auth.isLogged());
       });
   }

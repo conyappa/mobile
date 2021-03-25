@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-import AppText from '../components/AppText.jsx';
+import api from '../api/index';
+
+import BalanceContainer from '../components/BalanceContainer.jsx';
 import ScreenContainer from '../components/ScreenContainer.jsx';
 
 export default function Landing() {
+  const [user, setUser] = useState({});
+
+  function fetchUserData() {
+    api.user.fetchProfile().then(({ data }) => {
+      setUser(data);
+    });
+  }
+
+  useEffect(fetchUserData, []);
+
   return (
     <ScreenContainer>
-      <AppText>Landing</AppText>
+      <BalanceContainer balance={user.balance} />
     </ScreenContainer>
   );
 }
