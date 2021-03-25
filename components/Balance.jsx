@@ -5,7 +5,7 @@ import I18n from 'i18n-js';
 
 import AppText from './AppText.jsx';
 
-export default function BalanceContainer({ balance }) {
+export default function Balance({ balance }) {
   return (
     <Container>
       <AppText style={{ textTransform: 'uppercase' }}>
@@ -18,11 +18,11 @@ export default function BalanceContainer({ balance }) {
   );
 }
 
-BalanceContainer.propTypes = {
+Balance.propTypes = {
   balance: PropTypes.number,
 };
 
-BalanceContainer.defaultProps = {
+Balance.defaultProps = {
   balance: undefined,
 };
 

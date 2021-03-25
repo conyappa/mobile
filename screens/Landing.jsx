@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import api from '../api/index';
-import BalanceContainer from '../components/BalanceContainer.jsx';
+import Balance from '../components/Balance.jsx';
 import ScreenContainer from '../components/ScreenContainer.jsx';
 
 export default function Landing({ userId }) {
@@ -18,7 +18,7 @@ export default function Landing({ userId }) {
 
   return (
     <ScreenContainer>
-      <BalanceContainer balance={user.balance} />
+      <Balance balance={user.balance} />
     </ScreenContainer>
   );
 }
