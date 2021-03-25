@@ -1,30 +1,27 @@
 import React from 'react';
-import { View } from 'react-native';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 
 import { COLORS, StyleUtils } from '../utils/styles';
 
-export default function AppText({ children, color }) {
+export default function AppText({ children, style }) {
   return (
-    <View>
-      <StyledText color={color}>
-        { children }
-      </StyledText>
-    </View>
+    <StyledText style={style}>
+      { children }
+    </StyledText>
   );
 }
 
 AppText.propTypes = {
   children: PropTypes.string.isRequired,
-  color: PropTypes.string,
+  style: PropTypes.arrayOf(PropTypes.object),
 };
 
 AppText.defaultProps = {
-  color: COLORS.gray800,
+  style: [],
 };
 
 const StyledText = styled.Text`
-  color: ${({ color }) => color};
-  ${StyleUtils.fontSize('md')}
+  color: ${COLORS.gray800};
+  ${StyleUtils.fontSize()}
 `;
