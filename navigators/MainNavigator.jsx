@@ -15,7 +15,7 @@ function useSession() {
         api.auth.setToken(token);
 
         // Call setUserId before calling setIsLogged
-        // so that the LoggedNavigator is not rendered
+        // so the LoggedNavigator is only rendered
         // with a valid userId (not null).
         setUserId(id);
         setIsLogged(api.auth.isLogged());
@@ -26,7 +26,7 @@ function useSession() {
     api.auth.resetToken();
 
     // Call setIsLogged before calling setUserId
-    // so that the LoggedNavigator is not rendered
+    // so the LoggedNavigator is only rendered
     // with a valid userId (not null).
     setIsLogged(api.auth.isLogged());
     setUserId(null);
