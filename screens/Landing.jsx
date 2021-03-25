@@ -9,7 +9,7 @@ export default function Landing() {
   const [user, setUser] = useState({});
 
   function fetchUserData() {
-    api.user.fetchProfile().then(({ data }) => {
+    api.users.fetchProfile().then(({ data }) => {
       setUser(data);
     });
   }

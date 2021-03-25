@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import api from '../api/index';
 
 import LoggedNavigator from './LoggedNavigator.jsx';
-import Login from '../screens/Login.jsx';
+import SessionNavigator from './SessionNavigator.jsx';
 
 function useSession() {
   const [isLogged, setIsLogged] = useState(false);
@@ -12,7 +12,7 @@ function useSession() {
     api.auth.login(email, password)
       .then(({ data: { token, id: userId } = {} }) => {
         api.auth.setToken(token);
-        api.user.setId(userId);
+        api.users.setId(userId);
 
         setIsLogged(api.auth.isLogged());
       });
@@ -34,6 +34,6 @@ export default function MainNavigator() {
   }
 
   return (
-    <Login login={login} />
+    <SessionNavigator login={login} />
   );
 }
