@@ -16,9 +16,11 @@ export default function Landing({ userId }) {
 
   useEffect(fetchUserData, [userId]);
 
+  const { balance } = user;
+
   return (
     <ScreenContainer>
-      <Balance balance={user.balance} />
+      <Balance balance={balance} />
     </ScreenContainer>
   );
 }
