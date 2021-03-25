@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import api from '../api/index';
 
 import LoggedNavigator from './LoggedNavigator.jsx';
-import Login from '../screens/Login.jsx';
+import SessionNavigator from './SessionNavigator.jsx';
 
 function useSession() {
   const [isLogged, setIsLogged] = useState(false);
@@ -32,6 +32,6 @@ export default function MainNavigator() {
   }
 
   return (
-    <Login login={login} />
+    <SessionNavigator login={login} />
   );
 }
