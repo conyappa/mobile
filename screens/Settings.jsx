@@ -15,7 +15,7 @@ export default function Settings({ logout }) {
       <AppText>Settings</AppText>
       <SpacedLogout
         onPress={logout}
-        color={COLORS.red500}
+        textColor={COLORS.red500}
       >
         { I18n.t(['session', 'logout']) }
       </SpacedLogout>
