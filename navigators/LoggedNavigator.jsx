@@ -28,7 +28,7 @@ function getTabBarIconFunction(IconComponent, name) {
   return tabBarIcon;
 }
 
-export default function LoggedNavigator({ logout }) {
+export default function LoggedNavigator({ logout, userId }) {
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -40,11 +40,12 @@ export default function LoggedNavigator({ logout }) {
       >
         <Tab.Screen
           name="Landing"
-          component={Landing}
           options={{
             tabBarIcon: getTabBarIconFunction(FontAwesome5, 'piggy-bank'),
           }}
-        />
+        >
+          {() => <Landing userId={userId} />}
+        </Tab.Screen>
         <Tab.Screen
           name="Deposit"
           component={Deposit}
@@ -81,4 +82,5 @@ export default function LoggedNavigator({ logout }) {
 
 LoggedNavigator.propTypes = {
   logout: PropTypes.func.isRequired,
+  userId: PropTypes.string.isRequired,
 };

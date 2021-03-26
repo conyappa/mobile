@@ -11,6 +11,7 @@ const es = {
     lastName: 'Apellido',
     rut: 'RUT',
     password: 'Contraseña',
+    balance: 'Saldo',
   },
   errorMessage: {
     required: '%{name} puede estar vacío',
@@ -20,6 +21,9 @@ const es = {
     api: {
       alreadyExists: '%{name} ya está en uso',
     },
+  },
+  misc: {
+    loading: 'Cargando',
   },
 };
 
