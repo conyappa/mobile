@@ -14,7 +14,7 @@ const es = {
     balance: 'Saldo',
   },
   errorMessage: {
-    required: '%{name} puede estar vacío',
+    required: '%{name} no puede estar vacío',
     minLength: '%{name} debe contener %{min} carácteres o más',
     pattern: '%{name} inválido',
     rutValidate: 'RUT inválido',
