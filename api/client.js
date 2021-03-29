@@ -26,4 +26,9 @@ const client = axios.create({
   ],
 });
 
+client.interceptors.request.use((config) => {
+  const { params } = config;
+  return { ...config, params: decamelizeKeys(params) };
+});
+
 export default client;
