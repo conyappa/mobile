@@ -20,6 +20,8 @@ export const SPACING = {
 export const TEXT_SIZES = {
   sm: 12,
   md: 18,
+  lg: 24,
+  xl: 32,
 };
 
 export const ICON_SIZES = {
@@ -33,5 +35,7 @@ export const StyleUtils = {
   spacedBottom: (size = 'md') => `margin-bottom: ${SPACING[size]}px;`,
   spacedX: (size = 'md') => `margin-top: ${SPACING[size]}px; margin-bottom: ${SPACING[size]}px;`,
   padded: (size = 'md') => `padding: ${SPACING[size]}px;`,
+  paddedY: (size = 'md') => `padding-top: ${SPACING[size]}px; padding-bottom: ${SPACING[size]}px;`,
+  paddedX: (size = 'md') => `padding-left: ${SPACING[size]}px; padding-right: ${SPACING[size]}px;`,
   rounded: (size = 'md') => `border-radius: ${SPACING[size]}px;`,
 };
