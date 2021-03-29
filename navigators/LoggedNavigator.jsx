@@ -1,8 +1,10 @@
+/* eslint-disable react/style-prop-object */
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FontAwesome5, FontAwesome } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
+import { StatusBar } from 'expo-status-bar';
 
 import { COLORS, ICON_SIZES } from '../utils/styles';
 
@@ -31,6 +33,7 @@ function getTabBarIconFunction(IconComponent, name) {
 export default function LoggedNavigator({ logout, userId }) {
   return (
     <NavigationContainer>
+      <StatusBar style="dark" />
       <Tab.Navigator
         tabBarOptions={{
           showLabel: false,
@@ -55,11 +58,12 @@ export default function LoggedNavigator({ logout, userId }) {
         />
         <Tab.Screen
           name="Tickets"
-          component={Tickets}
           options={{
             tabBarIcon: getTabBarIconFunction(FontAwesome5, 'ticket-alt'),
           }}
-        />
+        >
+          {() => <Tickets userId={userId} />}
+        </Tab.Screen>
         <Tab.Screen
           name="Prizes"
           component={Prizes}
