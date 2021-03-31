@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
-import { map } from 'lodash';
+import { map, min } from 'lodash';
 
 import I18n from 'i18n-js';
 import { ActivityIndicator } from 'react-native';
@@ -54,7 +54,9 @@ export default function Tickets({ userId }) {
   return (
     <LoggedScreen>
       <TitleText>{I18n.t('screens.tickets.ticketCount', { count })}</TitleText>
-      <AppText>{I18n.t('screens.tickets.topTickets', { count: SHOWN_TICKETS })}</AppText>
+      <AppText>
+        {I18n.t('screens.tickets.topTickets', { count: min([tickets.length, SHOWN_TICKETS]) })}
+      </AppText>
       <TicketsContainer>
         {
             map(
