@@ -41,7 +41,7 @@ const Container = styled.View`
   flex: 1;
   justify-content: center;
   ${StyleUtils.padded('lg')}
-  ${StyleUtils.spacedX('lg')}
+  ${StyleUtils.spacedY('lg')}
 `;
 
 const SizedImage = styled.Image`
