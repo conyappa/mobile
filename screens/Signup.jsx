@@ -6,7 +6,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { rutValidate, rutFormat, rutClean } from 'rut-helpers';
 
 import {
-  map, mapValues, omit,
+  map, mapValues, omit, toInteger,
 } from 'lodash';
 import { COLORS, StyleUtils } from '../utils/styles';
 import api from '../api';
@@ -75,8 +75,8 @@ export default function Signup() {
   function onSubmit(data) {
     setRegistering(true);
     const { rut: completeRut } = data;
-    const checkDigit = completeRut.slice(completeRut.length - 1);
-    const rut = completeRut.slice(0, completeRut.length - 1);
+    const checkDigit = toInteger(completeRut.slice(completeRut.length - 1));
+    const rut = toInteger(completeRut.slice(0, completeRut.length - 1));
     api.users.create({ ...data, rut, checkDigit })
       .then(() => {
         setAlert(I18n.t('session.signupSuccess'));
