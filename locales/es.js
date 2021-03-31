@@ -25,6 +25,13 @@ const es = {
   misc: {
     loading: 'Cargando',
   },
+  screens: {
+    tickets: {
+      ticketCount: 'Tienes %{count} boletos',
+      topTickets: 'Estos son tus top %{count}',
+      none: 'No tienes boletos',
+    },
+  },
 };
 
 export default es;
