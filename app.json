@@ -25,7 +25,7 @@
       }
     },
     "android": {
-      "package": "cl.conyappa.conyappa",
+      "package": "com.conyappa.conyappa",
       "versionCode": 1,
       "permissions": [],
       "adaptiveIcon": {
