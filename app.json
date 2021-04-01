@@ -4,23 +4,30 @@
     "slug": "conyappa",
     "owner": "conyappa",
     "version": "1.0.0",
+    "description": "Con Yappa es una cuenta de ahorro que ofrece la posibilidad de ganar premios sorteados al azar. Mientras más ahorras, mayores son tus probabilidades de ganar.",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "primaryColor": "#343457",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#343457"
     },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "cl.conyappa.conyappa",
+      "buildNumber": "1.0.0",
+      "supportsTablet": true,
+      "config": {
+        "usesNonExemptEncryption": false
+      }
     },
     "android": {
+      "package": "cl.conyappa.conyappa",
+      "versionCode": 1,
+      "permissions": [],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#343457"
