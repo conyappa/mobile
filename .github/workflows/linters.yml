@@ -30,4 +30,4 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Lint with ESLint
-        run: npx eslint . --ext .js,.jsx --max-warnings=0
+        run: make eslint

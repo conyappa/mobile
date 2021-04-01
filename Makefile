@@ -1,0 +1,8 @@
+# Linters
+.PHONY: eslint
+eslint:
+	npx eslint . --ext .js,.jsx --max-warnings=0
+
+.PHONY: eslint!
+eslint!:
+	npx eslint . --ext .js,.jsx --fix
