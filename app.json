@@ -17,7 +17,7 @@
       "**/*"
     ],
     "ios": {
-      "bundleIdentifier": "cl.conyappa.conyappa",
+      "bundleIdentifier": "com.conyappa.conyappa",
       "buildNumber": "1.0.0",
       "supportsTablet": true,
       "config": {
