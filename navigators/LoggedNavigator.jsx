@@ -8,7 +8,7 @@ import { StatusBar } from 'expo-status-bar';
 
 import { COLORS, ICON_SIZES } from '../utils/styles';
 
-import Deposit from '../screens/Deposit.jsx';
+import Bank from '../screens/Bank.jsx';
 import Tickets from '../screens/Tickets.jsx';
 import Landing from '../screens/Landing.jsx';
 import Prizes from '../screens/Prizes.jsx';
@@ -50,8 +50,8 @@ export default function LoggedNavigator({ logout, userId }) {
           {() => <Landing userId={userId} />}
         </Tab.Screen>
         <Tab.Screen
-          name="Deposit"
-          component={Deposit}
+          name="Bank"
+          component={Bank}
           options={{
             tabBarIcon: getTabBarIconFunction(FontAwesome, 'bank'),
           }}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
-import { map } from 'lodash';
+import { map, min } from 'lodash';
 
 import I18n from 'i18n-js';
 import { ActivityIndicator } from 'react-native';
@@ -9,8 +9,8 @@ import { COLORS, StyleUtils } from '../utils/styles';
 import api from '../api';
 
 import AppText from '../components/AppText.jsx';
-import ScrollableScreen from '../components/ScrollableScreen.jsx';
 import Ticket from '../components/Ticket.jsx';
+import LoggedScreen from '../components/LoggedScreen.jsx';
 
 const SHOWN_TICKETS = 20;
 export default function Tickets({ userId }) {
@@ -45,19 +45,20 @@ export default function Tickets({ userId }) {
 
   if (error || count === 0) {
     return (
-      <Container>
+      <LoggedScreen>
         <TitleText>{I18n.t('screens.tickets.none')}</TitleText>
-      </Container>
+      </LoggedScreen>
     );
   }
 
   return (
-    <ScrollableScreen>
-      <Container>
-        <TitleText>{I18n.t('screens.tickets.ticketCount', { count })}</TitleText>
-        <AppText>{I18n.t('screens.tickets.topTickets', { count: SHOWN_TICKETS })}</AppText>
-        <TicketsContainer>
-          {
+    <LoggedScreen>
+      <TitleText>{I18n.t('screens.tickets.ticketCount', { count })}</TitleText>
+      <AppText>
+        {I18n.t('screens.tickets.topTickets', { count: min([tickets.length, SHOWN_TICKETS]) })}
+      </AppText>
+      <TicketsContainer>
+        {
             map(
               tickets,
               (ticket, index) => (
@@ -69,9 +70,8 @@ export default function Tickets({ userId }) {
               ),
             )
           }
-        </TicketsContainer>
-      </Container>
-    </ScrollableScreen>
+      </TicketsContainer>
+    </LoggedScreen>
   );
 }
 
@@ -79,18 +79,12 @@ Tickets.propTypes = {
   userId: PropTypes.string.isRequired,
 };
 
-const Container = styled.SafeAreaView`
-  ${StyleUtils.spacedX()}
-  ${StyleUtils.spacedY('lg')}
-`;
-
 const LoadingContainer = styled.SafeAreaView`
   flex: 1;
   justify-content: center;
 `;
 
 const TitleText = styled(AppText)`
-  ${StyleUtils.spacedTop()}
   ${StyleUtils.fontSize('xl')}
 `;
 
