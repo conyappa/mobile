@@ -24,6 +24,7 @@ nano .env  # or your editor of choice
 
 Please note that there are 4 possible environmental variables that you can modify:
 
+- `DEVELOPMENT_SCHEMA`: Defines the schema to use to connect to when in development. Defaults to `http`.
 - `DEVELOPMENT_HOST`: Defines the host to connect to when in development. Defaults to the machine that started the `expo` server. **It should not include the HTTP schema**.
 - `DEVELOPMENT_PORT`: Defines the port to connect to when in development. Defaults to `8000`.
 - `DEVELOPMENT_API_PORT`: Defines the API version to connect to when in development. Defaults to `v1`.
@@ -50,8 +51,8 @@ On development, the app can either be connected to a remote or local server. Thi
 
 ### Remote staging server
 
-To connect to the staging server you must set `USE_LOCAL_SERVER=false` and add the corresponding `STAGING_URL`
+To connect to the staging server on development, just change the `DEVELOPMENT_HOST` to correspond to the staging URL and the `DEVELOPMENT_PORT` to `80`.
 
 ### Local server
 
-First you must install and run [Con Yappa's backend](https://github.com/conyappa/backend). Then you must set `USE_LOCAL_SERVER=true` and add the corresponding `LOCAL_URL`. To obtain the local URL you should find out [computer's network IP address](https://lifehacker.com/how-to-find-your-local-and-external-ip-address-5833108). The local URL is `http://<computer-ip>:8000/v1` if you're running the server on the `8000` port.
+First you must install and run [Con Yappa's backend](https://github.com/conyappa/backend). If you are using macOS or Linux, the default configurations of the development app should connect you by default to the local server. If you are using Windows with `wsl`, you probably won't be able to connect to the local development server.
