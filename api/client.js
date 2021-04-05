@@ -4,15 +4,12 @@ import Constants from 'expo-constants';
 
 let baseURL;
 
-const developmentSchema = Constants.manifest.extra.DEVELOPMENT_SCHEMA || 'http';
-const developmentHost = Constants.manifest.extra.DEVELOPMENT_HOST || Constants.manifest.debuggerHost.split(':').shift().replace(/^packager./, '');
-const developmentPort = Constants.manifest.extra.DEVELOPMENT_PORT || '8000';
-const developmentAPIVersion = Constants.manifest.extra.DEVELOPMENT_API_PORT || 'v1';
+const developmentURL = Constants.manifest.extra.DEVELOPMENT_URL || `http://${Constants.manifest.debuggerHost.split(':').shift()}:8000/v1`;
 
 if (Constants.manifest.releaseChannel === 'production') {
   baseURL = Constants.manifest.extra.PRODUCTION_URL;
 } else if (__DEV__) { // eslint-disable-line no-undef
-  baseURL = `${developmentSchema}://${developmentHost}:${developmentPort}/${developmentAPIVersion}`;
+  baseURL = developmentURL;
 } else {
   baseURL = Constants.manifest.extra.STAGING_URL;
 }
