@@ -5,9 +5,10 @@ export default ({ config }) => ({
   ...config,
   extra: {
     ...config.extra,
-    PRODUCTION_URL: process.env.PRODUCTION_URL,
+    DEVELOPMENT_HOST: process.env.DEVELOPMENT_HOST,
+    DEVELOPMENT_PORT: process.env.DEVELOPMENT_PORT,
+    DEVELOPMENT_API_VERSION: process.env.DEVELOPMENT_API_VERSION,
     STAGING_URL: process.env.STAGING_URL,
-    USE_LOCAL_SERVER: process.env.USE_LOCAL_SERVER === 'true',
-    LOCAL_URL: process.env.LOCAL_URL,
+    PRODUCTION_URL: process.env.PRODUCTION_URL,
   },
 });

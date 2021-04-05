@@ -24,8 +24,9 @@ nano .env  # or your editor of choice
 
 Please note that there are 4 possible environmental variables that you can modify:
 
-- `DEVELOPMENT_HOST`: Defines the host to connect to when in development. Defaults to the machine that started the `expo` server.
+- `DEVELOPMENT_HOST`: Defines the host to connect to when in development. Defaults to the machine that started the `expo` server. **It should not include the HTTP schema**.
 - `DEVELOPMENT_PORT`: Defines the port to connect to when in development. Defaults to `8000`.
+- `DEVELOPMENT_API_PORT`: Defines the API version to connect to when in development. Defaults to `v1`.
 - `STAGING_URL`: Defines the staging URL of the app. This URL gets used when the app is not running on development mode and when the release channel is not `production`.
 - `PRODUCTION_URL`: Defines the production URL of the app. This URL gets used when the app is not running on development mode and when the release channel is `production`.
 
