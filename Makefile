@@ -6,3 +6,7 @@ eslint:
 .PHONY: eslint!
 eslint!:
 	npx eslint . --ext .js,.jsx --fix
+
+.PHONY: stylelint
+stylelint:
+	npx stylelint "**/*.jsx"
