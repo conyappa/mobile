@@ -52,7 +52,7 @@ const es = {
       copy: 'Copiar',
       copied: '¡Copiado!',
     },
-    config: {
+    settings: {
       rulesTitle: 'Reglas',
       logoutTitle: 'Cerrar sesión',
     },

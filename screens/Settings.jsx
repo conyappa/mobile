@@ -12,11 +12,11 @@ import TouchableText from '../components/TouchableText.jsx';
 export default function Settings({ logout }) {
   return (
     <ScreenContainer>
-      <TitleText>{ I18n.t('screens.config.rulesTitle') }</TitleText>
+      <TitleText>{ I18n.t('screens.settings.rulesTitle') }</TitleText>
       <RulesText>
         { I18n.t('misc.rules') }
       </RulesText>
-      <TitleText>{ I18n.t('screens.config.logoutTitle') }</TitleText>
+      <TitleText>{ I18n.t('screens.settings.logoutTitle') }</TitleText>
       <SpacedLogout
         onPress={logout}
         textColor={COLORS.red500}
