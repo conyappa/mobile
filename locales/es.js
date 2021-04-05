@@ -1,3 +1,9 @@
+const rules = `
+Por cada $5000 que tengas ahorrados obtendrás un boleto para participar en nuestro sorteo semanal 🎁, que comienza todos los Lunes a las 20:00.
+
+Cada día a la misma hora saldrá un nuevo número. ¡Mientras más aciertos tengas por boleto al finalizar el sorteo, más ganas! 🤑
+`;
+
 const es = {
   session: {
     login: 'Iniciar sesión',
@@ -24,6 +30,7 @@ const es = {
   },
   misc: {
     loading: 'Cargando',
+    rules,
   },
   screens: {
     tickets: {
@@ -44,6 +51,10 @@ const es = {
       email: 'Correo',
       copy: 'Copiar',
       copied: '¡Copiado!',
+    },
+    config: {
+      rulesTitle: 'Reglas',
+      logoutTitle: 'Cerrar sesión',
     },
   },
 };
