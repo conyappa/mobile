@@ -3,11 +3,12 @@ import { camelizeKeys, decamelizeKeys } from 'humps';
 import Constants from 'expo-constants';
 
 let baseURL;
+const developmentPort = Constants.manifest.extra.DEVELOPMENT_PORT || '8000';
 if (Constants.manifest.releaseChannel === 'production') {
   baseURL = Constants.manifest.extra.PRODUCTION_URL;
 // eslint-disable-next-line no-undef
 } else if (__DEV__ && Constants.manifest.extra.USE_LOCAL_SERVER) {
-  baseURL = Constants.manifest.extra.LOCAL_URL;
+  baseURL = Constants.manifest.debuggerHost.split(':').shift().concat(developmentPort);
 } else {
   baseURL = Constants.manifest.extra.STAGING_URL;
 }
