@@ -6,13 +6,20 @@ import I18n from 'i18n-js';
 import AppText from './AppText.jsx';
 
 export default function Balance({ balance }) {
+  function getBalance(unknownBalance) {
+    if (unknownBalance === undefined) {
+      return `${I18n.t('misc.loading')}...`;
+    }
+    return unknownBalance;
+  }
+
   return (
     <Container>
       <AppText style={[{ textTransform: 'uppercase' }]}>
         {I18n.t('user.balance')}
       </AppText>
       <AppText>
-        {balance || `${I18n.t('misc.loading')}...`}
+        { getBalance(balance) }
       </AppText>
     </Container>
   );
