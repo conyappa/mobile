@@ -8,7 +8,7 @@ import AppText from './AppText.jsx';
 export default function Balance({ balance }) {
   return (
     <Container>
-      <AppText style={{ textTransform: 'uppercase' }}>
+      <AppText style={[{ textTransform: 'uppercase' }]}>
         {I18n.t('user.balance')}
       </AppText>
       <AppText>
