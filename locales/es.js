@@ -65,6 +65,7 @@ const es = {
     },
     settings: {
       rulesTitle: 'Reglas',
+      moreInfoText: 'Toca acá para más información',
       logoutTitle: 'Cerrar sesión',
     },
     prizes: {

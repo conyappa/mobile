@@ -21,7 +21,7 @@ export default function Settings({ logout }) {
         onPress={() => Linking.openURL('https://www.notion.so/conyappa/Informaci-n-Con-Yappa-f82daa1f76284e588c707ff6eb2a35e7')}
         textColor={COLORS.lightBlue}
       >
-        Toca acá para más información
+        { I18n.t('screens.settings.moreInfoText') }
       </MoreInfoText>
       <TitleText>{ I18n.t('screens.settings.logoutTitle') }</TitleText>
       <SpacedLogout
