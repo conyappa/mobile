@@ -3,7 +3,7 @@
     "name": "Con Yappa",
     "slug": "conyappa",
     "owner": "conyappa",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Con Yappa es una cuenta de ahorro que ofrece la posibilidad de ganar premios sorteados al azar. Mientras más ahorras, mayores son tus probabilidades de ganar.",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,7 +18,7 @@
     ],
     "ios": {
       "bundleIdentifier": "com.conyappa.conyappa",
-      "buildNumber": "1.0.0",
+      "buildNumber": "1.0.1",
       "supportsTablet": true,
       "config": {
         "usesNonExemptEncryption": false
