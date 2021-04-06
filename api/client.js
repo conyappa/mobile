@@ -4,7 +4,8 @@ import Constants from 'expo-constants';
 
 let baseURL;
 
-const developmentURL = Constants.manifest.extra.DEVELOPMENT_URL || `http://${Constants.manifest.debuggerHost.split(':').shift()}:8000/v1`;
+const defaultHost = Constants.manifest.debuggerHost ? Constants.manifest.debuggerHost.split(':').shift() : 'localhost';
+const developmentURL = Constants.manifest.extra.DEVELOPMENT_URL || `http://${defaultHost}:8000/v1`;
 
 if (Constants.manifest.releaseChannel === 'production') {
   baseURL = Constants.manifest.extra.PRODUCTION_URL;
