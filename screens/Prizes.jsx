@@ -5,7 +5,7 @@ import I18n from 'i18n-js';
 import { StyleUtils } from '@/utils/styles';
 
 import AppText from '@/components/AppText.jsx';
-import ScreenContainer from '@/components/ScreenContainer.jsx';
+import ScreenContainer from '@/components/containers/VerticallyCenteredScreenContainer.jsx';
 
 export default function Prizes() {
   return (

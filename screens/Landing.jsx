@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import api from '@/api/index';
 import Balance from '@/components/Balance.jsx';
-import ScreenContainer from '@/components/ScreenContainer.jsx';
+import ScreenContainer from '@/components/containers/VerticallyCenteredScreenContainer.jsx';
 
 export default function Landing({ userId }) {
   const [user, setUser] = useState({});

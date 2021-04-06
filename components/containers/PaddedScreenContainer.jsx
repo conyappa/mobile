@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 
 import { StyleUtils } from '@/utils/styles';
 
-import ScrollableScreen from './ScrollableScreen.jsx';
+import ScrollableScreen from '@/components/ScrollableScreen.jsx';
 
-export default function LoggedScreen({ children }) {
+export default function PaddedScreenContainer({ children }) {
   return (
     <ScrollableScreen>
       <Container>
@@ -16,7 +16,7 @@ export default function LoggedScreen({ children }) {
   );
 }
 
-LoggedScreen.propTypes = {
+PaddedScreenContainer.propTypes = {
   children: PropTypes.node.isRequired,
 };
 

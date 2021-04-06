@@ -6,7 +6,7 @@ import I18n from 'i18n-js';
 import { COLORS, StyleUtils } from '@/utils/styles';
 
 import AppText from '@/components/AppText.jsx';
-import ScreenContainer from '@/components/ScreenContainer.jsx';
+import ScreenContainer from '@/components/containers/VerticallyCenteredScreenContainer.jsx';
 import TouchableText from '@/components/TouchableText.jsx';
 
 export default function Settings({ logout }) {

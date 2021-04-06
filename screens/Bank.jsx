@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 
 import I18n from 'i18n-js';
 import { map } from 'lodash';
-import LoggedScreen from '@/components/LoggedScreen.jsx';
+import ScreenContainer from '@/components/containers/PaddedScreenContainer.jsx';
 import { StyleUtils } from '@/utils/styles';
 
 import AppText from '@/components/AppText.jsx';
@@ -22,7 +22,7 @@ const WITHDRAW_EMAIL = 'ahorra@conyappa.cl';
 
 export default function Bank() {
   return (
-    <LoggedScreen>
+    <ScreenContainer>
       <TitleText>{ I18n.t('screens.bank.depositTitle') }</TitleText>
       <AppText>{ I18n.t('screens.bank.depositInstructions') }</AppText>
       <BankFieldsContainer>
@@ -48,7 +48,7 @@ export default function Bank() {
           value={WITHDRAW_EMAIL}
         />
       </BankFieldsContainer>
-    </LoggedScreen>
+    </ScreenContainer>
   );
 }
 
