@@ -5,12 +5,12 @@ import { map, min } from 'lodash';
 
 import I18n from 'i18n-js';
 import { ActivityIndicator } from 'react-native';
-import { COLORS, StyleUtils } from '../utils/styles';
-import api from '../api';
+import { COLORS, StyleUtils } from '@/utils/styles';
+import api from '@/api';
 
-import AppText from '../components/AppText.jsx';
-import Ticket from '../components/Ticket.jsx';
-import LoggedScreen from '../components/LoggedScreen.jsx';
+import AppText from '@/components/AppText.jsx';
+import Ticket from '@/components/Ticket.jsx';
+import LoggedScreen from '@/components/LoggedScreen.jsx';
 
 const SHOWN_TICKETS = 20;
 export default function Tickets({ userId }) {

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 
-import { StyleUtils } from '../utils/styles';
+import { StyleUtils } from '@/utils/styles';
 
 import ScrollableScreen from './ScrollableScreen.jsx';
 

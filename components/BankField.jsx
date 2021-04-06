@@ -7,7 +7,7 @@ import I18n from 'i18n-js';
 
 import {
   COLORS, StyleUtils,
-} from '../utils/styles';
+} from '@/utils/styles';
 
 import AppText from './AppText.jsx';
 

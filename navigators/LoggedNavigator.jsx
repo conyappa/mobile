@@ -6,13 +6,13 @@ import { FontAwesome5, FontAwesome } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import { StatusBar } from 'expo-status-bar';
 
-import { COLORS, ICON_SIZES } from '../utils/styles';
+import { COLORS, ICON_SIZES } from '@/utils/styles';
 
-import Bank from '../screens/Bank.jsx';
-import Tickets from '../screens/Tickets.jsx';
-import Landing from '../screens/Landing.jsx';
-import Prizes from '../screens/Prizes.jsx';
-import Settings from '../screens/Settings.jsx';
+import Bank from '@/screens/Bank.jsx';
+import Tickets from '@/screens/Tickets.jsx';
+import Landing from '@/screens/Landing.jsx';
+import Prizes from '@/screens/Prizes.jsx';
+import Settings from '@/screens/Settings.jsx';
 
 const Tab = createBottomTabNavigator();
 

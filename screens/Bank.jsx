@@ -3,11 +3,11 @@ import styled from 'styled-components/native';
 
 import I18n from 'i18n-js';
 import { map } from 'lodash';
-import { StyleUtils } from '../utils/styles';
+import LoggedScreen from '@/components/LoggedScreen.jsx';
+import { StyleUtils } from '@/utils/styles';
 
-import AppText from '../components/AppText.jsx';
-import LoggedScreen from '../components/LoggedScreen.jsx';
-import DepositField from '../components/BankField.jsx';
+import AppText from '@/components/AppText.jsx';
+import DepositField from '@/components/BankField.jsx';
 
 const FIELDS = [
   { name: 'name', value: 'Con Yappa' },

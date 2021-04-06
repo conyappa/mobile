@@ -3,8 +3,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import PropTypes from 'prop-types';
 
-import Login from '../screens/Login.jsx';
-import Signup from '../screens/Signup.jsx';
+import Login from '@/screens/Login.jsx';
+import Signup from '@/screens/Signup.jsx';
 
 const Stack = createStackNavigator();
 
