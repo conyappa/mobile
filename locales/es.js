@@ -1,5 +1,5 @@
 const rules = `
-Por cada $5000 que tengas ahorrados obtendrás un boleto para participar en nuestro sorteo semanal 🎁, que comienza todos los Lunes a las 20:00.
+Por cada $5000 que tengas ahorrados obtendrás un boleto para participar en nuestro sorteo semanal 🎁, que comienza todos los lunes a las 20:00.
 
 Cada día (a la misma hora todos los días) saldrá un nuevo número. ¡Mientras más aciertos tengas por boleto al finalizar el sorteo, más ganas! 🤑
 `;
@@ -68,7 +68,7 @@ const es = {
       logoutTitle: 'Cerrar sesión',
     },
     prizes: {
-      title: 'Premios!',
+      title: 'Premios',
       text: 'Los premios por boleto, dependiendo de la cantidad de aciertos de dicho boleto, son los siguientes:',
       prizes,
     },
