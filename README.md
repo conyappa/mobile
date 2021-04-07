@@ -53,3 +53,41 @@ To connect to the staging server on development, just change the `DEVELOPMENT_HO
 ### Local server
 
 First you must install and run [Con Yappa's backend](https://github.com/conyappa/backend). If you are using macOS or Linux, the default configurations of the development app should connect you by default to the local server. If you are using Windows with `wsl`, you probably won't be able to connect to the local development server.
+
+## Deployment
+
+### Staging
+
+For staging we use [Expo Go](https://expo.io/client). To upload a new version use
+
+```sh
+expo publish
+```
+
+This will push the state of the app from your local machine to staging. Beware of uploading unwanted local changes.
+
+### Production
+
+To make builds we use a [release channel](https://docs.expo.io/distribution/release-channels/) named production. This channel will hold the production app state. In order to push a staging published state to production, you can list previous publishes using
+
+```sh
+expo publish:history
+```
+
+The [history command](https://docs.expo.io/workflow/expo-cli/#expo-publishhistory) will list previous publishes with their channel, os, and publication id. To set a publication id to production you should use
+
+```sh
+expo publish:set -c production -p <publicationId>
+```
+
+The [set command](https://docs.expo.io/workflow/expo-cli/#expo-publishset) will push the published state to production. Expo publishes different versions for iOS and Android, so this has to be done once for each. Beware we're using [over-the-air updates](https://docs.expo.io/build/updates/) so anything pushed to production will be available to users on the store published app. If you need to make a new build you can do it with
+
+```sh
+expo build:ios -t archive --release-channel production  --no-publish
+```
+
+Or
+
+```sh
+expo build:android -t app-bundle --release-channel production --no-publish
+```
