@@ -27,7 +27,7 @@ jobs:
         uses: expo/expo-github-action@v5
         with:
           expo-version: 4.x
-          expo-token: ${{ secrets.EXPO_TOKEN }}
+          expo-token: ${{ secrets.EXPO_ACCESS_TOKEN }}
 
       # Cache the node_modules directory
       - name: Set up node_modules cache
@@ -46,6 +46,8 @@ jobs:
 
       - name: Add comment with QR to the Pull Request
         uses: marocchino/sticky-pull-request-comment@v2
+        env:
+          EXPO_PROJECT: "@conyappa/conyappa"
         with:
           message: |
             ![Expo QR](https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=exp://exp.host/${{ env.EXPO_PROJECT }}?release-channel=pr-preview-${{ github.event.number }})
