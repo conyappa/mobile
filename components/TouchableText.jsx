@@ -3,7 +3,7 @@ import { TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
 
-import { COLORS } from '../utils/styles';
+import { COLORS } from '@/utils/styles';
 
 import AppText from './AppText.jsx';
 

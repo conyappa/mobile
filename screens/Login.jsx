@@ -4,12 +4,12 @@ import styled from 'styled-components/native';
 import I18n from 'i18n-js';
 import { useNavigation } from '@react-navigation/native';
 
-import { COLORS, StyleUtils } from '../utils/styles';
+import { COLORS, StyleUtils } from '@/utils/styles';
 
-import Button from '../components/Button.jsx';
-import SessionScreen from '../components/SessionScreen.jsx';
-import TouchableText from '../components/TouchableText.jsx';
-import TextInput from '../components/TextInput.jsx';
+import Button from '@/components/Button.jsx';
+import SessionScreen from '@/components/SessionScreen.jsx';
+import TouchableText from '@/components/TouchableText.jsx';
+import TextInput from '@/components/TextInput.jsx';
 
 export default function Login({ login }) {
   const navigation = useNavigation();

@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
 import { StatusBar } from 'expo-status-bar';
 
-import { COLORS, StyleUtils } from '../utils/styles';
+import { COLORS, StyleUtils } from '@/utils/styles';
 
 import ScrollableScreen from './ScrollableScreen.jsx';
 
-const greenPigSource = require('../assets/green-pig.png');
+const greenPigSource = require('@/assets/green-pig.png');
 
 export default function SessionScreen({ children }) {
   return (
