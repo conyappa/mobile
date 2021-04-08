@@ -1,14 +1,20 @@
-node_modules/**/*
-.expo/*
-npm-debug.*
+# expo/react native stuff
+.expo
 *.jks
 *.p8
 *.p12
 *.key
 *.mobileprovision
 *.orig.*
-web-build/
-.env
+web-build
 
-# macOS
+# npm/yarn stuff
+node_modules
+npm-debug.*
+yarn-error.log
+
+# macOS stuff
 .DS_Store
+
+# environment stuff
+.env

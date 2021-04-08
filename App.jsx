@@ -1,8 +1,8 @@
 import React from 'react';
 
-import setupLocalization from './locales';
+import setupLocalization from './src/locales';
 
-import MainNavigator from './navigators/MainNavigator.jsx';
+import MainNavigator from './src/navigators/MainNavigator.jsx';
 
 setupLocalization();
 
