@@ -1,6 +1,5 @@
-node_modules
+# expo/react native stuff
 .expo
-npm-debug.*
 *.jks
 *.p8
 *.p12
@@ -8,7 +7,14 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build
-.env
 
-# macOS
+# npm/yarn stuff
+node_modules
+npm-debug.*
+yarn-error.log
+
+# macOS stuff
 .DS_Store
+
+# environment stuff
+.env
