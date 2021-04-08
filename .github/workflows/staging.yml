@@ -17,12 +17,6 @@ jobs:
         with:
           node-version: 12
 
-      - name: Set up Expo CLI
-        uses: expo/expo-github-action@v5
-        with:
-          expo-version: 4.x
-          expo-token: ${{ secrets.EXPO_ACCESS_TOKEN }}
-
       # Cache the node_modules directory
       - name: Set up node_modules cache
         uses: actions/cache@v2
@@ -34,6 +28,12 @@ jobs:
       - name: Install dependencies
         if: steps.node-modules-cache.outputs.cache-hit != 'true'
         run: yarn install --frozen-lockfile
+
+      - name: Set up Expo CLI
+        uses: expo/expo-github-action@v5
+        with:
+          expo-version: 4.x
+          expo-token: ${{ secrets.EXPO_ACCESS_TOKEN }}
 
       - name: Publish with Expo to default channel
         run: expo publish --non-interactive
