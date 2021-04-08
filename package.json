@@ -5,8 +5,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject",
-    "format": "yarn run eslint . --ext .js,.jsx --fix"
+    "eject": "expo eject"
   },
   "dependencies": {
     "@expo/vector-icons": "^12.0.4",
