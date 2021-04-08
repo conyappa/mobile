@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 
-import { COLORS, StyleUtils } from '../utils/styles';
+import { COLORS, StyleUtils } from '@/utils/styles';
 
 export default function AppText({ children, style }) {
   return (

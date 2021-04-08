@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import api from '../api';
-import { getData, removeData, storeData } from '../utils/local-storage';
+import api from '@/api';
+import { getData, removeData, storeData } from '@/utils/local-storage';
 
 const TOKEN_STORAGE_KEY = 'tokenStorageKey';
 const USER_ID_STORAGE_KEY = 'userIdStorageKey';
