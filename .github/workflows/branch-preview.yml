@@ -49,5 +49,6 @@ jobs:
           EXPO_PROJECT: "@conyappa/conyappa"
         with:
           message: |
+            ## Test the changes!
             ![Expo QR](https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=exp://exp.host/${{ env.EXPO_PROJECT }}?release-channel=pr-${{ github.event.number }}-preview)
             Published to https://exp.host/${{ env.EXPO_PROJECT }}?release-channel=pr-${{ github.event.number }}-preview
