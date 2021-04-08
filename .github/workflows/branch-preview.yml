@@ -12,7 +12,7 @@ on:
       - "yarn.lock"
 
 jobs:
-  branch-preview:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
