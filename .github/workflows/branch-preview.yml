@@ -6,7 +6,7 @@ on:
       - ".github/workflows/branch-preview.yml"
       - "**.js"
       - "**.jsx"
-      - "assets/**"
+      - "src/**"
       - "package.json"
       - "yarn.lock"
 
