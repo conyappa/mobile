@@ -3,6 +3,7 @@ export const COLORS = {
   lightGreen: '#ABFFD4',
   blue: '#343457',
   lightBlue: '#8989c7',
+  darkBlue: '#1b1b36',
   white: '#FFFFFF',
   gray500: '#6B7280',
   gray800: '#1F2937',
@@ -23,6 +24,7 @@ export const TEXT_SIZES = {
   md: 18,
   lg: 24,
   xl: 32,
+  '2xl': 48,
 };
 
 export const ICON_SIZES = {
@@ -37,6 +39,7 @@ export const StyleUtils = {
   spacedY: (size = 'md') => `margin-top: ${SPACING[size]}px; margin-bottom: ${SPACING[size]}px;`,
   spacedX: (size = 'md') => `margin-left: ${SPACING[size]}px; margin-right: ${SPACING[size]}px;`,
   padded: (size = 'md') => `padding: ${SPACING[size]}px;`,
+  paddedTop: (size = 'md') => `padding-top: ${SPACING[size]}px;`,
   paddedY: (size = 'md') => `padding-top: ${SPACING[size]}px; padding-bottom: ${SPACING[size]}px;`,
   paddedX: (size = 'md') => `padding-left: ${SPACING[size]}px; padding-right: ${SPACING[size]}px;`,
   rounded: (size = 'md') => `border-radius: ${SPACING[size]}px;`,

@@ -74,6 +74,17 @@ const es = {
       prizes,
     },
   },
+  components: {
+    ongoingDraw: {
+      title: 'Resultados de la semana',
+      jackpotTitle: 'Podrías ganar',
+      jackpot: '$100.000!',
+      nextPick: 'El próximo sorteo será el %{date}',
+      hoursUnit: 'hrs',
+      minutesUnit: 'min',
+      secondsUnit: 'sec',
+    },
+  },
 };
 
 export default es;
