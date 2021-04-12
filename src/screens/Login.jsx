@@ -19,21 +19,21 @@ export default function Login({ login }) {
   const [error, setError] = useState(null);
 
   function typeText(callback) {
-    function wrapper() {
+    function wrapper(text) {
       setError(null);
-      callback();
+      callback(text);
     }
     return wrapper;
   }
 
-  async function handleLogin() {
+  async function handleLogin(loginEmail, loginPassword) {
     setError(null);
     setLoading(true);
-    const { error: internalError } = await login(email, password);
-    setLoading(false);
+    const { error: internalError } = await login(loginEmail, loginPassword);
     if (!internalError) {
       return;
     }
+    setLoading(false);
     if (internalError === 'ECONNABORTED') {
       setError(I18n.t('errorMessage.generic'));
     } else {
@@ -60,7 +60,7 @@ export default function Login({ login }) {
       </FormContainer>
       <SpacedButton
         title={I18n.t('session.login')}
-        onPress={handleLogin}
+        onPress={() => handleLogin(email, password)}
         busy={loading}
       />
       <SpacedSignupLink
