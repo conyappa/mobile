@@ -43,6 +43,8 @@ const es = {
   },
   misc: {
     loading: 'Cargando',
+    today: 'hoy',
+    tomorrow: 'mañana',
     rules,
   },
   screens: {
@@ -74,6 +76,17 @@ const es = {
       title: 'Premios',
       text: 'Los premios por boleto, dependiendo de la cantidad de aciertos de dicho boleto, son los siguientes:',
       prizes,
+    },
+  },
+  components: {
+    ongoingDraw: {
+      title: 'Resultados de la semana',
+      jackpotTitle: 'Podrías ganar',
+      jackpot: '$10.000.000',
+      nextResultTime: 'El próximo número saldrá %{day} a las %{time}',
+      hoursUnit: 'hrs',
+      minutesUnit: 'min',
+      secondsUnit: 'sec',
     },
   },
 };
