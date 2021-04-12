@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import I18n from 'i18n-js';
 
 import api from '@/api';
 import { getData, removeData, storeData } from '@/utils/local-storage';
@@ -30,12 +29,14 @@ export default function useSession() {
       setCredentials(token, id);
       storeData({ [TOKEN_STORAGE_KEY]: token, [USER_ID_STORAGE_KEY]: id });
       removeData([STORAGE_KEY_LOGIN_ERROR]);
+      return {};
     } catch (error) {
-      if (error.code === 'ECONNABORTED') {
-        storeData({ [STORAGE_KEY_LOGIN_ERROR]: I18n.t('errorMessage.generic') });
-      } else {
-        storeData({ [STORAGE_KEY_LOGIN_ERROR]: I18n.t('errorMessage.invalidUserPasswordCombination') });
-      }
+      const processedError = (
+        'code' in error
+          ? error.code // timeout
+          : error.response.status // HTTP error
+      );
+      return { error: processedError };
     }
   }
 

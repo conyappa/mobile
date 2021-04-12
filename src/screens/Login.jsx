@@ -13,27 +13,55 @@ import TextInput from '@/components/TextInput.jsx';
 
 export default function Login({ login }) {
   const navigation = useNavigation();
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
+
+  function typeText(callback) {
+    function wrapper() {
+      setError(null);
+      callback();
+    }
+    return wrapper;
+  }
+
+  async function handleLogin() {
+    setError(null);
+    setLoading(true);
+    const { error: internalError } = await login(email, password);
+    setLoading(false);
+    if (!internalError) {
+      return;
+    }
+    if (internalError === 'ECONNABORTED') {
+      setError(I18n.t('errorMessage.generic'));
+    } else {
+      setError(I18n.t('errorMessage.invalidUserPasswordCombination'));
+    }
+  }
 
   return (
     <SessionScreen>
       <FormContainer>
         <SpacedInput
-          onChangeText={setEmail}
+          onChangeText={typeText(setEmail)}
           value={email}
           placeholder={I18n.t('user.email')}
+          error={error}
         />
         <SpacedInput
-          onChangeText={setPassword}
+          onChangeText={typeText(setPassword)}
           value={password}
           placeholder={I18n.t('user.password')}
           secureTextEntry
+          error={error}
         />
       </FormContainer>
       <SpacedButton
         title={I18n.t('session.login')}
-        onPress={() => login(email, password)}
+        onPress={handleLogin}
+        busy={loading}
       />
       <SpacedSignupLink
         textColor={COLORS.green}
