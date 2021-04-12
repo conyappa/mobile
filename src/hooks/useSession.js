@@ -21,12 +21,20 @@ export default function useSession() {
     setIsLogged(api.auth.isLogged());
   }
 
-  function login(email, password) {
-    api.auth.login(email, password)
-      .then(({ data: { token, id } = {} }) => {
-        setCredentials(token, id);
-        storeData({ [TOKEN_STORAGE_KEY]: token, [USER_ID_STORAGE_KEY]: id });
-      });
+  async function login(email, password) {
+    try {
+      const { data: { token, id } = {} } = await api.auth.login(email, password);
+      setCredentials(token, id);
+      storeData({ [TOKEN_STORAGE_KEY]: token, [USER_ID_STORAGE_KEY]: id });
+      return {};
+    } catch (error) {
+      const processedError = (
+        'code' in error
+          ? error.code // timeout
+          : error.response.status // HTTP error
+      );
+      return { error: processedError };
+    }
   }
 
   function logout() {
