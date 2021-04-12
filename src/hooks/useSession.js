@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 
 import api from '@/api';
 import { getData, removeData, storeData } from '@/utils/local-storage';
-import { STORAGE_KEY_LOGIN_ERROR } from '@/utils/constants';
 
 const TOKEN_STORAGE_KEY = 'tokenStorageKey';
 const USER_ID_STORAGE_KEY = 'userIdStorageKey';
@@ -24,11 +23,9 @@ export default function useSession() {
 
   async function login(email, password) {
     try {
-      const response = await api.auth.login(email, password);
-      const { data: { token, id } = {} } = response;
+      const { data: { token, id } = {} } = await api.auth.login(email, password);
       setCredentials(token, id);
       storeData({ [TOKEN_STORAGE_KEY]: token, [USER_ID_STORAGE_KEY]: id });
-      removeData([STORAGE_KEY_LOGIN_ERROR]);
       return {};
     } catch (error) {
       const processedError = (
