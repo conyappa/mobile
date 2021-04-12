@@ -41,6 +41,8 @@ const es = {
   },
   misc: {
     loading: 'Cargando',
+    today: 'hoy',
+    tomorrow: 'mañana',
     rules,
   },
   screens: {
@@ -79,7 +81,7 @@ const es = {
       title: 'Resultados de la semana',
       jackpotTitle: 'Podrías ganar',
       jackpot: '$100.000!',
-      nextPick: 'El próximo sorteo será el %{date}',
+      nextResultTime: 'El próximo número saldrá %{day} a las %{time}',
       hoursUnit: 'hrs',
       minutesUnit: 'min',
       secondsUnit: 'sec',

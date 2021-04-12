@@ -6,7 +6,7 @@ import {
   floor, map, times, toUpper, toString, padStart,
 } from 'lodash';
 import {
-  format, parse, set, isBefore, addDays, differenceInSeconds,
+  format, parse, set, isBefore, addDays, differenceInSeconds, isToday,
 } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { View } from 'react-native';
@@ -98,8 +98,13 @@ export default function OngoingDraw({ style }) {
         <WhiteText>
           {
             I18n.t(
-              'components.ongoingDraw.nextPick',
-              { date: format(nextPickDate, "eeee dd 'a las' HH:mm ", { locale: es }) },
+              'components.ongoingDraw.nextResultTime',
+              {
+                day: isToday(nextPickDate)
+                  ? I18n.t('misc.today')
+                  : I18n.t('misc.tomorrow'),
+                time: format(nextPickDate, 'h a', { locale: es }),
+              },
             )
           }
         </WhiteText>
