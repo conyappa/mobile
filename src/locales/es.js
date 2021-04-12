@@ -80,7 +80,7 @@ const es = {
     ongoingDraw: {
       title: 'Resultados de la semana',
       jackpotTitle: 'Podrías ganar',
-      jackpot: '$100.000!',
+      jackpot: '$10.000.000',
       nextResultTime: 'El próximo número saldrá %{day} a las %{time}',
       hoursUnit: 'hrs',
       minutesUnit: 'min',
