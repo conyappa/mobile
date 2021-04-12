@@ -14,8 +14,8 @@ import useInterval from 'react-use/lib/useInterval';
 
 import {
   COLORS, SPACING, StyleUtils, TEXT_SIZES,
-} from '../utils/styles';
-import api from '../api';
+} from '@/utils/styles';
+import api from '@/api';
 
 import AppText from './AppText.jsx';
 
