@@ -53,3 +53,7 @@ To connect to the staging server on development, just change the `DEVELOPMENT_HO
 ### Local server
 
 First you must install and run [Con Yappa's backend](https://github.com/conyappa/backend). If you are using macOS or Linux, the default configurations of the development app should connect you by default to the local server. If you are using Windows with `wsl`, you probably won't be able to connect to the local development server.
+
+### Building the app from GitHub
+
+The repository includes a GitHub workflow that builds the application from the CD environment with a few clicks. To build the application, go to the "_Actions_" tab on the GitHub repository, click the `build-production` action and click the button that reads "_Run workflow_". This will prompt you to input the operating system to build (`ios` or `android`). After completing that field, click the green "_Run workflow_" button and the build will start on the Expo server.
