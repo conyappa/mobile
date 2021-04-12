@@ -38,7 +38,7 @@ const es = {
     api: {
       alreadyExists: '%{name} ya está en uso',
     },
-    invalidUserPasswordCombination: 'Invalid username/password combination',
+    invalidUserPasswordCombination: 'Combinación email/contraseña inválida',
     generic: 'Algo no está funcionando! Por favor, inténtalo de nuevo más tarde',
   },
   misc: {
