@@ -21,12 +21,15 @@ export default function useSession() {
     setIsLogged(api.auth.isLogged());
   }
 
-  function login(email, password) {
-    api.auth.login(email, password)
-      .then(({ data: { token, id } = {} }) => {
-        setCredentials(token, id);
-        storeData({ [TOKEN_STORAGE_KEY]: token, [USER_ID_STORAGE_KEY]: id });
-      });
+  async function login(email, password) {
+    try {
+      const response = await api.auth.login(email, password);
+      const { data: { token, id } = {} } = response;
+      setCredentials(token, id);
+      storeData({ [TOKEN_STORAGE_KEY]: token, [USER_ID_STORAGE_KEY]: id });
+    } catch (error) {
+      console.log('F');
+    }
   }
 
   function logout() {
