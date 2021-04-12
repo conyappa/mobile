@@ -4,11 +4,11 @@ import styled from 'styled-components/native';
 import { Linking } from 'react-native';
 
 import I18n from 'i18n-js';
-import { COLORS, StyleUtils } from '../utils/styles';
+import { COLORS, StyleUtils } from '@/utils/styles';
 
-import AppText from '../components/AppText.jsx';
-import ScreenContainer from '../components/ScreenContainer.jsx';
-import TouchableText from '../components/TouchableText.jsx';
+import AppText from '@/components/AppText.jsx';
+import ScreenContainer from '@/components/containers/VerticallyCenteredScreenContainer.jsx';
+import TouchableText from '@/components/TouchableText.jsx';
 
 export default function Settings({ logout }) {
   return (

@@ -11,6 +11,11 @@
     "import/resolver": {
       "node": {
         "extensions": [".js", ".json"]
+      },
+      "alias": {
+        "map": [
+          ["@", "./src"]
+        ]
       }
     },
     "react": {

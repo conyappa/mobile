@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { map } from 'lodash';
 import {
   COLORS, StyleUtils, TEXT_SIZES,
-} from '../utils/styles';
+} from '@/utils/styles';
 
 import AppText from './AppText.jsx';
 

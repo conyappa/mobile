@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 
-import useSession from '../hooks/useSession';
+import useSession from '@/hooks/useSession';
 
 import LoggedNavigator from './LoggedNavigator.jsx';
 import SessionNavigator from './SessionNavigator.jsx';

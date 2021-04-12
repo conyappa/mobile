@@ -8,14 +8,14 @@ import { rutValidate, rutFormat, rutClean } from 'rut-helpers';
 import {
   map, mapValues, omit, toInteger,
 } from 'lodash';
-import { COLORS, StyleUtils } from '../utils/styles';
-import api from '../api';
+import { COLORS, StyleUtils } from '@/utils/styles';
+import api from '@/api';
 
-import Button from '../components/Button.jsx';
-import TouchableText from '../components/TouchableText.jsx';
-import TextInput from '../components/TextInput.jsx';
-import AppText from '../components/AppText.jsx';
-import SessionScreen from '../components/SessionScreen.jsx';
+import Button from '@/components/Button.jsx';
+import TouchableText from '@/components/TouchableText.jsx';
+import TextInput from '@/components/TextInput.jsx';
+import AppText from '@/components/AppText.jsx';
+import SessionScreen from '@/components/SessionScreen.jsx';
 
 const PASSWORD_MIN_LENGTH = 6;
 const SIGNUP_FIELDS = [

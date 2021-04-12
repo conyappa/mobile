@@ -3,7 +3,7 @@ import { ActivityIndicator } from 'react-native';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 
-import { COLORS, SPACING, StyleUtils } from '../utils/styles';
+import { COLORS, SPACING, StyleUtils } from '@/utils/styles';
 
 import AppText from './AppText.jsx';
 
