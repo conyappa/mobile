@@ -25,6 +25,6 @@ PaddedScreenContainer.propTypes = {
 
 const Container = styled.View`
   ${StyleUtils.spacedX()}
-  ${StyleUtils.spacedTop('xl')}
+  ${StyleUtils.spacedTop('lg')}
   ${StyleUtils.spacedBottom()}
 `;
