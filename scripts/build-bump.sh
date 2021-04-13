@@ -31,4 +31,4 @@ sed -i.tmp "s#$OLD_STDVERSION_SUBSTITUTION#$NEW_STDVERSION_SUBSTITUTION#g" $META
 # Commit changes into build bump branch
 git checkout -b build-bump/prepare-build-$NEW_VERSION &&
 git add $METADATA_FILE &&
-git commit --message "Prepare build version $NEW_VERSION"
+git commit --message "chore: prepare build version $NEW_VERSION"

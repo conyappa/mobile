@@ -21,4 +21,4 @@ NEW_VERSION=$(yarn --silent getversion)
 # Commit changes into release branch
 git checkout -b release/prepare-$NEW_VERSION &&
 git add $BASE_REPOSITORY_FOLDER/package.json &&
-git commit --message "Prepare $NEW_VERSION release"
+git commit --message "chore: prepare $NEW_VERSION release"
