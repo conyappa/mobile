@@ -10,13 +10,15 @@ if [ -z $1 ]; then
     exit 1
 fi
 
-# Bump up package.json version and get new version
-yarn version --$1
+# Get base repository folder
+SCRIPTS_FOLDER=$(cd $(dirname $0) && pwd)
+BASE_REPOSITORY_FOLDER=$(dirname $SCRIPTS_FOLDER)
 
-# Get new version
+# Bump up package.json version and get new version
+yarn version --no-git-tag-version --$1
 NEW_VERSION=$(yarn --silent getversion)
 
 # Commit changes into release branch
-git add package.json &&
 git checkout -b release/prepare-$NEW_VERSION &&
-git commit --message "Prepare $NEW_VERSION release"
+git add $BASE_REPOSITORY_FOLDER/package.json &&
+git commit --message "chore: prepare $NEW_VERSION release"
