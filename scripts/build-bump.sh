@@ -5,8 +5,12 @@ if [ $(git symbolic-ref --short HEAD) != master ]; then
     exit 1
 fi
 
+# Get base repository folder
+SCRIPTS_FOLDER=$(cd $(dirname $0) && pwd)
+BASE_REPOSITORY_FOLDER=$(dirname $SCRIPTS_FOLDER)
+
 # Assign metadata file name
-METADATA_FILE="app.json"
+METADATA_FILE="$BASE_REPOSITORY_FOLDER/app.json"
 
 # Get versionCode line, remove commas, split by spaces and get the last element
 OLD_VERSION=$(grep $METADATA_FILE -e '"versionCode":' | sed 's/,//' | rev | cut -d' ' -f1 | rev)
@@ -25,6 +29,6 @@ sed -i.tmp "s#$OLD_SEMVERSION_SUBSTITUTION#$NEW_SEMVERSION_SUBSTITUTION#g" $META
 sed -i.tmp "s#$OLD_STDVERSION_SUBSTITUTION#$NEW_STDVERSION_SUBSTITUTION#g" $METADATA_FILE && rm $METADATA_FILE.tmp
 
 # Commit changes into build bump branch
+git checkout -b build-bump/prepare-build-$NEW_VERSION &&
 git add $METADATA_FILE &&
-git checkout -b build-bump/bump-to-version-$NEW_VERSION &&
 git commit --message "Prepare build version $NEW_VERSION"
