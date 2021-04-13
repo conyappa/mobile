@@ -9,12 +9,12 @@ assignees: ''
 
 ##Description
 
-None
+None.
 
 ##Expected behavior
 
-None
+None.
 
 ##Proposed solution
 
-None
+None.

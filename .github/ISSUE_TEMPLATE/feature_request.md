@@ -9,8 +9,8 @@ assignees: ''
 
 ##Description
 
-None
+None.
 
 ##Why it’s relevant
 
-None
+None.
