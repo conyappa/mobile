@@ -3,6 +3,10 @@ name: build-production
 on:
   workflow_dispatch:
     inputs:
+      environment:
+        description: <production|staging>
+        required: true
+        default: production
       operating-system:
         description: <ios|android>
         required: true
@@ -42,6 +46,6 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Build the application
-        run: sh ./scripts/build.sh ${{ github.event.inputs.operating-system }}
+        run: sh ./scripts/build.sh ${{ github.event.inputs.environment }} ${{ github.event.inputs.operating-system }}
         env:
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}

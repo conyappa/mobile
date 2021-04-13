@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Builds the production version of the application.
-# sh ./scripts/build.sh <OS>
+# sh ./scripts/build.sh <ENV> <OS>
 # Requires the environmental variables:
 # - EXPO_TOKEN: Access Token for the expo account to use (when not authenticated)
 # - APPLE_TEAM_ID: ID of the Apple Team (when building for iOS)
