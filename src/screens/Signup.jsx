@@ -72,10 +72,18 @@ export default function Signup() {
     setApiErrors(omit(apiErrors, name));
   }
 
+  function getCheckDigit(rut) {
+    const digit = rut.slice(rut.length - 1);
+    if (digit.toLowerCase() === 'k') {
+      return 10;
+    }
+    return toInteger(digit);
+  }
+
   function onSubmit(data) {
-    setRegistering(true);
+    // setRegistering(true);
     const { rut: completeRut } = data;
-    const checkDigit = toInteger(completeRut.slice(completeRut.length - 1));
+    const checkDigit = getCheckDigit(completeRut);
     const rut = toInteger(completeRut.slice(0, completeRut.length - 1));
     api.users.create({ ...data, rut, checkDigit })
       .then(() => {
