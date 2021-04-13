@@ -15,7 +15,7 @@ SCRIPTS_FOLDER=$(cd $(dirname $0) && pwd)
 BASE_REPOSITORY_FOLDER=$(dirname $SCRIPTS_FOLDER)
 
 # Bump up package.json version and get new version
-yarn version --$1
+yarn version --no-git-tag-version --$1
 
 # Get new version
 NEW_VERSION=$(yarn --silent getversion)
