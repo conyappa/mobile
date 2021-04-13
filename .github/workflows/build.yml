@@ -1,4 +1,4 @@
-name: build-production
+name: build
 
 on:
   workflow_dispatch:
@@ -12,7 +12,7 @@ on:
         required: true
 
 jobs:
-  build-production:
+  build:
     runs-on: ubuntu-latest
 
     steps:
