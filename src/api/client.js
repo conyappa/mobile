@@ -19,6 +19,7 @@ if (__DEV__) { // eslint-disable-line no-undef
 
 const client = axios.create({
   baseURL,
+  timeout: 3000,
   headers: {
     'Content-Type': 'application/json',
   },

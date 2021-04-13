@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
 
-import { StyleUtils } from '../utils/styles';
+import { COLORS, StyleUtils } from '@/utils/styles';
 
 import AppText from './AppText.jsx';
 
@@ -12,17 +12,17 @@ export default function Balance({ balance }) {
     if (unknownBalance === undefined) {
       return `${I18n.t('misc.loading')}...`;
     }
-    return unknownBalance;
+    return I18n.toCurrency(unknownBalance, { delimiter: '.', precision: 0 });
   }
 
   return (
     <Container>
-      <TitleText style={[{ textTransform: 'uppercase' }]}>
+      <TitleText>
         {I18n.t('user.balance')}
       </TitleText>
-      <AppText>
+      <BalanceText>
         { getBalance(balance) }
-      </AppText>
+      </BalanceText>
     </Container>
   );
 }
@@ -36,12 +36,15 @@ Balance.defaultProps = {
 };
 
 const Container = styled.View`
-  align-items: center;
-  flex: 1;
-  justify-content: center;
+  background-color: ${COLORS.green};
+  ${StyleUtils.padded()}
+  ${StyleUtils.rounded('sm')}
 `;
 
 const TitleText = styled(AppText)`
+  color: ${COLORS.darkGreen};
+`;
+
+const BalanceText = styled(AppText)`
   ${StyleUtils.fontSize('xl')}
-  ${StyleUtils.spacedBottom()}
 `;
