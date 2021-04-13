@@ -16,8 +16,6 @@ BASE_REPOSITORY_FOLDER=$(dirname $SCRIPTS_FOLDER)
 
 # Bump up package.json version and get new version
 yarn version --no-git-tag-version --$1
-
-# Get new version
 NEW_VERSION=$(yarn --silent getversion)
 
 # Commit changes into release branch
