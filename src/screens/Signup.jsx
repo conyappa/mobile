@@ -37,6 +37,14 @@ const SIGNUP_FIELDS = [
   },
 ];
 
+function getCheckDigit(rut) {
+  const digit = rut.slice(rut.length - 1);
+  if (digit.toLowerCase() === 'k') {
+    return 10;
+  }
+  return toInteger(digit);
+}
+
 export default function Signup() {
   const navigation = useNavigation();
   const [alert, setAlert] = useState('');
@@ -75,7 +83,7 @@ export default function Signup() {
   function onSubmit(data) {
     setRegistering(true);
     const { rut: completeRut } = data;
-    const checkDigit = toInteger(completeRut.slice(completeRut.length - 1));
+    const checkDigit = getCheckDigit(completeRut);
     const rut = toInteger(completeRut.slice(0, completeRut.length - 1));
     api.users.create({ ...data, rut, checkDigit })
       .then(() => {
