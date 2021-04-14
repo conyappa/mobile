@@ -4,6 +4,7 @@ import I18n from 'i18n-js';
 import { useNavigation } from '@react-navigation/native';
 import { useForm, Controller } from 'react-hook-form';
 import { rutValidate, rutFormat, rutClean } from 'rut-helpers';
+import { Platform } from 'react-native';
 
 import {
   map, mapValues, omit, toInteger,
@@ -18,6 +19,16 @@ import AppText from '@/components/AppText.jsx';
 import SessionScreen from '@/components/SessionScreen.jsx';
 
 const PASSWORD_MIN_LENGTH = 6;
+
+function rutFilter(value) {
+  const regex = /\d*[\dkK]?/;
+  const cleanRut = rutClean(value);
+  const [foundValue] = cleanRut.match(regex);
+  const slicedValue = foundValue.slice(0, 9);
+
+  return rutFormat(slicedValue);
+}
+
 const SIGNUP_FIELDS = [
   {
     name: 'email',
@@ -28,7 +39,8 @@ const SIGNUP_FIELDS = [
   {
     name: 'rut',
     rules: { required: true, validate: { rutValidate }, setValueAs: rutClean },
-    formatter: rutFormat,
+    filter: rutFilter,
+    keyboardType: Platform.OS === 'android' ? 'visible-password' : 'default',
   },
   {
     name: 'password',
@@ -104,7 +116,7 @@ export default function Signup() {
           map(
             SIGNUP_FIELDS,
             ({
-              name, rules, secureTextEntry, formatter,
+              name, rules, secureTextEntry, formatter, keyboardType, filter,
             }) => (
               <Controller
                 key={`signupInput-${name}`}
@@ -116,13 +128,15 @@ export default function Signup() {
                   <SpacedInput
                     onBlur={onBlur}
                     onChangeText={(text) => {
-                      onChange(text);
+                      const filteredText = filter ? filter(text) : text;
+                      onChange(filteredText);
                       cleanApiError(name);
                     }}
                     value={formatter ? formatter(value) : value}
                     error={getInputError(name, rules)}
                     placeholder={I18n.t(`user.${name}`)}
                     secureTextEntry={secureTextEntry}
+                    keyboardType={keyboardType}
                   />
                 )}
               />
