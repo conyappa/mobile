@@ -17,7 +17,6 @@ import TouchableText from '@/components/TouchableText.jsx';
 import TextInput from '@/components/TextInput.jsx';
 import AppText from '@/components/AppText.jsx';
 import SessionScreen from '@/components/SessionScreen.jsx';
-import { NavigatorIOS } from 'react-native';
 
 const PASSWORD_MIN_LENGTH = 6;
 const SIGNUP_FIELDS = [
