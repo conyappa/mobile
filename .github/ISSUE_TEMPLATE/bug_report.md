@@ -7,14 +7,14 @@ assignees: ''
 
 ---
 
-##Description
+## Description
 
 None.
 
-##Expected behavior
+## Expected behavior
 
 None.
 
-##Proposed solution
+## Proposed solution
 
 None.
