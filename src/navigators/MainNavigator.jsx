@@ -29,13 +29,11 @@ export default function MainNavigator() {
       let status = currentStatus;
 
       if (status !== 'granted') {
-        console.log('NOT GRANTED YET');
         const { status: newStatus } = await Notifications.requestPermissionsAsync();
         status = newStatus;
       }
 
       if (status === 'granted') {
-        console.log('GRANTED');
         const token = (await Notifications.getExpoPushTokenAsync()).data;
         setExpoPushToken(token);
       }
