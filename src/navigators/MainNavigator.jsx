@@ -23,7 +23,7 @@ export default function MainNavigator() {
     hideSplash();
   }, [checkedLocal]);
 
-  async function registerForPushNotificationsAsync() {
+  async function registerForPushNotifications() {
     if (Constants.isDevice) {
       const { status: currentStatus } = await Notifications.getPermissionsAsync();
       let status = currentStatus;
@@ -40,7 +40,7 @@ export default function MainNavigator() {
     }
   }
 
-  useEffect(() => { registerForPushNotificationsAsync(); }, []);
+  useEffect(() => { registerForPushNotifications(); }, []);
 
   if (!checkedLocal) {
     return null;
