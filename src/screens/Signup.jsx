@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
 import I18n from 'i18n-js';
 import { useNavigation } from '@react-navigation/native';
@@ -45,7 +46,7 @@ function getCheckDigit(rut) {
   return toInteger(digit);
 }
 
-export default function Signup() {
+export default function Signup({ login }) {
   const navigation = useNavigation();
   const [alert, setAlert] = useState('');
   const [registering, setRegistering] = useState(false);
@@ -80,16 +81,25 @@ export default function Signup() {
     setApiErrors(omit(apiErrors, name));
   }
 
+  async function attemptLogin(loginEmail, loginPassword) {
+    const { error: internalError } = login(loginEmail, loginPassword);
+    if (internalError) {
+      navigation.navigate('Login');
+    }
+  }
+
   function onSubmit(data) {
     setRegistering(true);
-    const { rut: completeRut } = data;
+    const { email, password, rut: completeRut } = data;
     const checkDigit = getCheckDigit(completeRut);
     const rut = toInteger(completeRut.slice(0, completeRut.length - 1));
+
     api.users.create({ ...data, rut, checkDigit })
       .then(() => {
         setAlert(I18n.t('session.signupSuccess'));
         reset();
         setApiErrors({});
+        attemptLogin(email, password);
       })
       .catch(({ response: { data: errorData = {} } = {} }) => {
         setApiErrors(mapValues(errorData, () => 'alreadyExists'));
@@ -147,6 +157,10 @@ export default function Signup() {
     </SessionScreen>
   );
 }
+
+Signup.propTypes = {
+  login: PropTypes.func.isRequired,
+};
 
 const FormContainer = styled.View`
   ${StyleUtils.spacedTop('lg')};
