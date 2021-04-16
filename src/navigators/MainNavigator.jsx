@@ -1,5 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
+import Constants from 'expo-constants';
+import * as Notifications from 'expo-notifications';
 
 import useSession from '@/hooks/useSession';
 
@@ -10,6 +12,7 @@ export default function MainNavigator() {
   const {
     login, logout, isLogged, userId, checkedLocal,
   } = useSession();
+  const [, setExpoPushToken] = useState(null);
 
   useEffect(() => {
     async function hideSplash() {
@@ -17,9 +20,29 @@ export default function MainNavigator() {
         await SplashScreen.hideAsync();
       }
     }
-
     hideSplash();
   }, [checkedLocal]);
+
+  async function registerForPushNotificationsAsync() {
+    if (Constants.isDevice) {
+      const { status: currentStatus } = await Notifications.getPermissionsAsync();
+      let status = currentStatus;
+
+      if (status !== 'granted') {
+        console.log('NOT GRANTED YET');
+        const { status: newStatus } = await Notifications.requestPermissionsAsync();
+        status = newStatus;
+      }
+
+      if (status === 'granted') {
+        console.log('GRANTED');
+        const token = (await Notifications.getExpoPushTokenAsync()).data;
+        setExpoPushToken(token);
+      }
+    }
+  }
+
+  useEffect(() => { registerForPushNotificationsAsync(); }, []);
 
   if (!checkedLocal) {
     return null;
