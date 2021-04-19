@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 import { map, min } from 'lodash';
+import useAsyncFn from 'react-use/lib/useAsyncFn';
 
 import I18n from 'i18n-js';
-import { ActivityIndicator } from 'react-native';
-import { COLORS, StyleUtils } from '@/utils/styles';
+import { StyleUtils } from '@/utils/styles';
 import api from '@/api';
 
 import AppText from '@/components/AppText.jsx';
@@ -14,36 +14,28 @@ import ScreenContainer from '@/components/containers/PaddedScreenContainer.jsx';
 
 const SHOWN_TICKETS = 20;
 export default function Tickets({ userId }) {
-  const [tickets, setTickets] = useState([]);
-  const [count, setCount] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [
+    { loading, error, value }, fetchTickets,
+  ] = useAsyncFn(async () => {
+    const { data } = await api.tickets.retrieve(userId, { pageSize: SHOWN_TICKETS });
+    return data;
+  }, [userId]);
 
-  function fetchTicketsData() {
-    setLoading(true);
-    setError(false);
-    api.tickets.retrieve(userId, { pageSize: SHOWN_TICKETS })
-      .then(
-        ({ data: { count: apiCount, results } }) => {
-          setTickets(results);
-          setCount(apiCount);
-        },
-      )
-      .catch(() => setError(true))
-      .finally(() => setLoading(false));
-  }
+  useEffect(() => {
+    fetchTickets();
+  }, [fetchTickets, userId]);
 
-  useEffect(fetchTicketsData, [userId]);
+  const { count, results: tickets } = value || {};
 
-  if (loading || count === null) {
+  if (error) {
     return (
-      <LoadingContainer>
-        <ActivityIndicator color={COLORS.blue} />
-      </LoadingContainer>
+      <ScreenContainer>
+        <TitleText>{I18n.t('screens.tickets.error')}</TitleText>
+      </ScreenContainer>
     );
   }
 
-  if (error || count === 0) {
+  if (count === 0) {
     return (
       <ScreenContainer>
         <TitleText>{I18n.t('screens.tickets.none')}</TitleText>
@@ -52,25 +44,40 @@ export default function Tickets({ userId }) {
   }
 
   return (
-    <ScreenContainer>
-      <TitleText>{I18n.t('screens.tickets.ticketCount', { count })}</TitleText>
-      <AppText>
-        {I18n.t('screens.tickets.topTickets', { count: min([tickets.length, SHOWN_TICKETS]) })}
-      </AppText>
-      <TicketsContainer>
+    <ScreenContainer
+      onRefresh={fetchTickets}
+      refreshing={loading}
+    >
+      <TitleText>
         {
-            map(
-              tickets,
-              (ticket, index) => (
-                <SpacedTicket
-                  key={`ticket-${index}`}
-                  isFirst={index === 0}
-                  ticket={ticket}
-                />
-              ),
-            )
-          }
-      </TicketsContainer>
+          count
+            ? I18n.t('screens.tickets.ticketCount', { count })
+            : I18n.t('screens.tickets.title')
+        }
+      </TitleText>
+      {
+        tickets && (
+          <>
+            <AppText>
+              {I18n.t('screens.tickets.topTickets', { count: min([tickets.length, SHOWN_TICKETS]) })}
+            </AppText>
+            <TicketsContainer>
+              {
+              map(
+                tickets,
+                (ticket, index) => (
+                  <SpacedTicket
+                    key={`ticket-${index}`}
+                    isFirst={index === 0}
+                    ticket={ticket}
+                  />
+                ),
+              )
+            }
+            </TicketsContainer>
+          </>
+        )
+      }
     </ScreenContainer>
   );
 }
@@ -78,11 +85,6 @@ export default function Tickets({ userId }) {
 Tickets.propTypes = {
   userId: PropTypes.string.isRequired,
 };
-
-const LoadingContainer = styled.SafeAreaView`
-  flex: 1;
-  justify-content: center;
-`;
 
 const TitleText = styled(AppText)`
   ${StyleUtils.fontSize('xl')}
