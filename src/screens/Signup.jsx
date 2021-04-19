@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
 import I18n from 'i18n-js';
 import { useNavigation } from '@react-navigation/native';
 import { useForm, Controller } from 'react-hook-form';
 import { rutValidate, rutFormat, rutClean } from 'rut-helpers';
+import { Platform } from 'react-native';
 
 import {
   map, mapValues, omit, toInteger,
@@ -18,22 +20,37 @@ import AppText from '@/components/AppText.jsx';
 import SessionScreen from '@/components/SessionScreen.jsx';
 
 const PASSWORD_MIN_LENGTH = 6;
+
+function rutFilter(value) {
+  const regex = /\d*[\dkK]?/;
+  const cleanRut = rutClean(value);
+  const [foundValue] = cleanRut.match(regex);
+  const slicedValue = foundValue.slice(0, 9);
+
+  return rutFormat(slicedValue);
+}
+
 const SIGNUP_FIELDS = [
   {
     name: 'email',
     rules: { required: true, pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ },
+    autoCapitalize: 'none',
   },
-  { name: 'firstName', rules: { required: true } },
-  { name: 'lastName', rules: { required: true } },
+  { name: 'firstName', rules: { required: true }, autoCapitalize: 'words' },
+  { name: 'lastName', rules: { required: true }, autoCapitalize: 'words' },
   {
     name: 'rut',
     rules: { required: true, validate: { rutValidate }, setValueAs: rutClean },
     formatter: rutFormat,
+    autoCapitalize: 'characters',
+    filter: rutFilter,
+    keyboardType: Platform.OS === 'android' ? 'visible-password' : 'default',
   },
   {
     name: 'password',
     rules: { required: true, minLength: PASSWORD_MIN_LENGTH },
     secureTextEntry: true,
+    autoCapitalize: 'none',
   },
 ];
 
@@ -45,7 +62,7 @@ function getCheckDigit(rut) {
   return toInteger(digit);
 }
 
-export default function Signup() {
+export default function Signup({ login }) {
   const navigation = useNavigation();
   const [alert, setAlert] = useState('');
   const [registering, setRegistering] = useState(false);
@@ -80,16 +97,25 @@ export default function Signup() {
     setApiErrors(omit(apiErrors, name));
   }
 
+  async function attemptLogin(loginEmail, loginPassword) {
+    const { error: internalError } = login(loginEmail, loginPassword);
+    if (internalError) {
+      navigation.navigate('Login');
+    }
+  }
+
   function onSubmit(data) {
     setRegistering(true);
-    const { rut: completeRut } = data;
+    const { email, password, rut: completeRut } = data;
     const checkDigit = getCheckDigit(completeRut);
     const rut = toInteger(completeRut.slice(0, completeRut.length - 1));
+
     api.users.create({ ...data, rut, checkDigit })
       .then(() => {
         setAlert(I18n.t('session.signupSuccess'));
         reset();
         setApiErrors({});
+        attemptLogin(email, password);
       })
       .catch(({ response: { data: errorData = {} } = {} }) => {
         setApiErrors(mapValues(errorData, () => 'alreadyExists'));
@@ -104,7 +130,7 @@ export default function Signup() {
           map(
             SIGNUP_FIELDS,
             ({
-              name, rules, secureTextEntry, formatter,
+              name, rules, secureTextEntry, autoCapitalize, formatter, keyboardType, filter,
             }) => (
               <Controller
                 key={`signupInput-${name}`}
@@ -116,13 +142,16 @@ export default function Signup() {
                   <SpacedInput
                     onBlur={onBlur}
                     onChangeText={(text) => {
-                      onChange(text);
+                      const filteredText = filter ? filter(text) : text;
+                      onChange(filteredText);
                       cleanApiError(name);
                     }}
                     value={formatter ? formatter(value) : value}
                     error={getInputError(name, rules)}
                     placeholder={I18n.t(`user.${name}`)}
                     secureTextEntry={secureTextEntry}
+                    keyboardType={keyboardType}
+                    autoCapitalize={autoCapitalize}
                   />
                 )}
               />
@@ -147,6 +176,10 @@ export default function Signup() {
     </SessionScreen>
   );
 }
+
+Signup.propTypes = {
+  login: PropTypes.func.isRequired,
+};
 
 const FormContainer = styled.View`
   ${StyleUtils.spacedTop('lg')};

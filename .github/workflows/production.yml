@@ -1,26 +1,16 @@
-name: build
+name: production
 
 on:
-  workflow_dispatch:
-    inputs:
-      environment:
-        description: <production|staging>
-        required: true
-        default: production
-      operating-system:
-        description: <ios|android>
-        required: true
+  push:
+    branches:
+      - stable
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
-        with:
-          # Build the stable branch.
-          # https://github.com/actions/checkout#usage
-          ref: stable
 
       - name: Set up Node.js v12
         uses: actions/setup-node@v1
@@ -45,7 +35,5 @@ jobs:
         if: steps.node-modules-cache.outputs.cache-hit != 'true'
         run: yarn install --frozen-lockfile
 
-      - name: Build the application
-        run: sh ./scripts/build.sh ${{ github.event.inputs.environment }} ${{ github.event.inputs.operating-system }}
-        env:
-          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      - name: Publish with Expo to production channel
+        run: expo publish --release-channel production --non-interactive
