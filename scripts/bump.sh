@@ -44,4 +44,5 @@ sed -i.tmp "s#$OLD_INTEGER_VERSION_SUBSTITUTION#$NEW_INTEGER_VERSION_SUBSTITUTIO
 # Commit changes into release branch
 git checkout -b release/prepare-$NEW_SEMVER_VERSION &&
 git add $BASE_REPOSITORY_FOLDER/package.json &&
+git add $METADATA_FILE &&
 git commit --message "chore: prepare $NEW_SEMVER_VERSION release"
