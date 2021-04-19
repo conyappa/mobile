@@ -5,6 +5,17 @@ Cada día (a la misma hora todos los días) saldrá un nuevo número. ¡Mientras
 `;
 
 const es = {
+  number: {
+    format: {
+      delimiter: '.',
+      separator: ',',
+    },
+    currency: {
+      format: {
+        precision: 0,
+      },
+    },
+  },
   session: {
     login: 'Iniciar sesión',
     logout: 'Cerrar sesión',

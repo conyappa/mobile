@@ -7,7 +7,6 @@ import I18n from 'i18n-js';
 
 import { StyleUtils, COLORS } from '@/utils/styles';
 import api from '@/api';
-import { formatCurrency } from '@/utils/formatters';
 
 import AppText from '@/components/AppText.jsx';
 import ScreenContainer from '@/components/containers/PaddedScreenContainer.jsx';
@@ -48,7 +47,7 @@ export default function Prizes() {
                   { matches }
                 </WhiteText>
                 <PrizeText>
-                  { formatCurrency(prize) }
+                  { I18n.toCurrency(prize) }
                 </PrizeText>
               </PrizeContainer>
             ),

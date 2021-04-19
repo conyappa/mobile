@@ -17,7 +17,6 @@ import {
   COLORS, SPACING, StyleUtils, TEXT_SIZES,
 } from '@/utils/styles';
 import api from '@/api';
-import { formatCurrency } from '@/utils/formatters';
 
 import AppText from './AppText.jsx';
 
@@ -98,7 +97,7 @@ export default function OngoingDraw({ style }) {
       </ResultsContainer>
       <JackpotContainer>
         <WhiteText>{I18n.t('components.ongoingDraw.jackpotTitle')}</WhiteText>
-        <JackpotText>{prizes && formatCurrency(prizes['7'])}</JackpotText>
+        <JackpotText>{prizes && I18n.toCurrency(prizes['7'])}</JackpotText>
       </JackpotContainer>
       <CounterContainer>
         <WhiteText>
