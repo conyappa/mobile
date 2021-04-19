@@ -23,18 +23,21 @@ const SIGNUP_FIELDS = [
   {
     name: 'email',
     rules: { required: true, pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ },
+    autoCapitalize: 'none',
   },
-  { name: 'firstName', rules: { required: true } },
-  { name: 'lastName', rules: { required: true } },
+  { name: 'firstName', rules: { required: true }, autoCapitalize: 'words' },
+  { name: 'lastName', rules: { required: true }, autoCapitalize: 'words' },
   {
     name: 'rut',
     rules: { required: true, validate: { rutValidate }, setValueAs: rutClean },
     formatter: rutFormat,
+    autoCapitalize: 'characters',
   },
   {
     name: 'password',
     rules: { required: true, minLength: PASSWORD_MIN_LENGTH },
     secureTextEntry: true,
+    autoCapitalize: 'none',
   },
 ];
 
@@ -114,7 +117,7 @@ export default function Signup({ login }) {
           map(
             SIGNUP_FIELDS,
             ({
-              name, rules, secureTextEntry, formatter,
+              name, rules, secureTextEntry, autoCapitalize, formatter,
             }) => (
               <Controller
                 key={`signupInput-${name}`}
@@ -133,6 +136,7 @@ export default function Signup({ login }) {
                     error={getInputError(name, rules)}
                     placeholder={I18n.t(`user.${name}`)}
                     secureTextEntry={secureTextEntry}
+                    autoCapitalize={autoCapitalize}
                   />
                 )}
               />

@@ -49,6 +49,7 @@ export default function Login({ login }) {
           value={email}
           placeholder={I18n.t('user.email')}
           error={error}
+          autoCapitalize="none"
         />
         <SpacedInput
           onChangeText={typeText(setPassword)}
@@ -56,6 +57,7 @@ export default function Login({ login }) {
           placeholder={I18n.t('user.password')}
           secureTextEntry
           error={error}
+          autoCapitalize="none"
         />
       </FormContainer>
       <SpacedButton
