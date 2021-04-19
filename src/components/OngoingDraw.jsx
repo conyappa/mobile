@@ -11,6 +11,7 @@ import {
 import { es } from 'date-fns/locale';
 import { View } from 'react-native';
 import useInterval from 'react-use/lib/useInterval';
+import useAsync from 'react-use/lib/useAsync';
 
 import {
   COLORS, SPACING, StyleUtils, TEXT_SIZES,
@@ -41,6 +42,10 @@ export default function OngoingDraw({ style }) {
   const [results, setResults] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
   const [currentTime, setCurrentTime] = useState(new Date());
+  const { value: prizes } = useAsync(async () => {
+    const { data: { prizes: apiPrizes } } = await api.draws.retrieveMetadata();
+    return apiPrizes;
+  }, []);
 
   function fetchOngoingDraw() {
     api.draws.retrieveOngoing()
@@ -92,7 +97,7 @@ export default function OngoingDraw({ style }) {
       </ResultsContainer>
       <JackpotContainer>
         <WhiteText>{I18n.t('components.ongoingDraw.jackpotTitle')}</WhiteText>
-        <JackpotText>{I18n.t('components.ongoingDraw.jackpot')}</JackpotText>
+        <JackpotText>{prizes && I18n.toCurrency(prizes['7'])}</JackpotText>
       </JackpotContainer>
       <CounterContainer>
         <WhiteText>
