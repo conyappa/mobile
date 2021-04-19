@@ -6,7 +6,7 @@ import { COLORS, StyleUtils } from '@/utils/styles';
 import AppText from './AppText.jsx';
 
 export default function TextInput({
-  onChangeText, value, placeholder, secureTextEntry, style, error, keyboardType,
+  onChangeText, value, placeholder, secureTextEntry, style, error, autoCapitalize, keyboardType,
 }) {
   return (
     <>
@@ -20,6 +20,7 @@ export default function TextInput({
         selectionColor={COLORS.lightBlue}
         hasErrors={!!error}
         keyboardType={keyboardType}
+        autoCapitalize={autoCapitalize}
       />
       {
         !!error && (
@@ -36,23 +37,24 @@ TextInput.propTypes = {
   onChangeText: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
+  secureTextEntry: PropTypes.bool,
+  style: PropTypes.arrayOf(PropTypes.object),
   error: PropTypes.oneOfType(
     [
       PropTypes.bool,
       PropTypes.string,
     ],
   ),
-  secureTextEntry: PropTypes.bool,
-  style: PropTypes.arrayOf(PropTypes.object),
+  autoCapitalize: PropTypes.string.isRequired,
   keyboardType: PropTypes.string,
 };
 
 TextInput.defaultProps = {
   placeholder: '',
-  error: false,
   secureTextEntry: false,
   style: [],
   keyboardType: 'default',
+  error: false,
 };
 
 const StyledInput = styled.TextInput`
