@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Exit on error
+set -e
+
 if [ $(git symbolic-ref --short HEAD) != master ]; then
     echo "This script is supposed to be run on the \"master\" branch."
     exit 1
