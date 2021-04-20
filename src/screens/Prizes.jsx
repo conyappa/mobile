@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components/native';
-import useAsync from 'react-use/lib/useAsync';
-import { ActivityIndicator } from 'react-native';
+import useAsyncFn from 'react-use/lib/useAsyncFn';
 import { map } from 'lodash';
 import I18n from 'i18n-js';
 
@@ -12,56 +11,54 @@ import AppText from '@/components/AppText.jsx';
 import ScreenContainer from '@/components/containers/PaddedScreenContainer.jsx';
 
 export default function Prizes() {
-  const { loading, value: prizes } = useAsync(async () => {
+  const [{ loading, value: prizes }, fetchPrizes] = useAsyncFn(async () => {
     const { data: { prizes: apiPrizes } } = await api.draws.retrieveMetadata();
     return apiPrizes;
   }, []);
 
-  if (loading) {
-    return (
-      <LoadingContainer>
-        <ActivityIndicator color={COLORS.blue} />
-      </LoadingContainer>
-    );
-  }
+  useEffect(() => {
+    fetchPrizes();
+  }, [fetchPrizes]);
 
   return (
-    <ScreenContainer>
+    <ScreenContainer
+      onRefresh={fetchPrizes}
+      refreshing={loading}
+    >
       <TitleText>{ I18n.t('screens.prizes.title') }</TitleText>
       <AppText>{ I18n.t('screens.prizes.text') }</AppText>
-      <PrizesContainer>
-        <PrizeHeader header>
-          <AppText>
-            { I18n.t('screens.prizes.matches') }
-          </AppText>
-          <AppText>
-            { I18n.t('screens.prizes.prize') }
-          </AppText>
-        </PrizeHeader>
-        {
-          map(
-            prizes,
-            (prize, matches) => (
-              <PrizeContainer key={`${matches}-matches-prize`}>
-                <WhiteText>
-                  { matches }
-                </WhiteText>
-                <PrizeText>
-                  { I18n.toCurrency(prize) }
-                </PrizeText>
-              </PrizeContainer>
-            ),
-          )
-        }
-      </PrizesContainer>
+      {
+        prizes && (
+          <PrizesContainer>
+            <PrizeHeader header>
+              <AppText>
+                { I18n.t('screens.prizes.matches') }
+              </AppText>
+              <AppText>
+                { I18n.t('screens.prizes.prize') }
+              </AppText>
+            </PrizeHeader>
+            {
+            map(
+              prizes,
+              (prize, matches) => (
+                <PrizeContainer key={`${matches}-matches-prize`}>
+                  <WhiteText>
+                    { matches }
+                  </WhiteText>
+                  <PrizeText>
+                    { I18n.toCurrency(prize) }
+                  </PrizeText>
+                </PrizeContainer>
+              ),
+            )
+          }
+          </PrizesContainer>
+        )
+      }
     </ScreenContainer>
   );
 }
-
-const LoadingContainer = styled.SafeAreaView`
-  flex: 1;
-  justify-content: center;
-`;
 
 const TitleText = styled(AppText)`
   ${StyleUtils.fontSize('xl')}

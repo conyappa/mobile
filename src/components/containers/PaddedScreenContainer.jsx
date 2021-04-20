@@ -7,10 +7,13 @@ import { StyleUtils } from '@/utils/styles';
 import ScrollableScreen from '@/components/ScrollableScreen.jsx';
 import SafeAreaViewWrapper from './SafeAreaViewWrapper.jsx';
 
-export default function PaddedScreenContainer({ children }) {
+export default function PaddedScreenContainer({ children, onRefresh, refreshing }) {
   return (
     <SafeAreaViewWrapper>
-      <ScrollableScreen>
+      <ScrollableScreen
+        onRefresh={onRefresh}
+        refreshing={refreshing}
+      >
         <Container>
           {children}
         </Container>
@@ -21,6 +24,13 @@ export default function PaddedScreenContainer({ children }) {
 
 PaddedScreenContainer.propTypes = {
   children: PropTypes.node.isRequired,
+  onRefresh: PropTypes.func,
+  refreshing: PropTypes.bool,
+};
+
+PaddedScreenContainer.defaultProps = {
+  onRefresh: null,
+  refreshing: false,
 };
 
 const Container = styled.View`

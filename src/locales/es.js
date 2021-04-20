@@ -49,9 +49,11 @@ const es = {
   },
   screens: {
     tickets: {
+      title: 'Boletos',
       ticketCount: 'Tienes %{count} boletos',
       topTickets: 'Estos son tus top %{count}',
       none: 'No tienes boletos',
+      error: 'Se produjo un error',
     },
     bank: {
       depositTitle: 'Obtén boletos',
