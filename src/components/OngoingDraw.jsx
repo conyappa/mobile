@@ -136,7 +136,7 @@ OngoingDraw.propTypes = {
   ]),
   results: PropTypes.arrayOf(PropTypes.number).isRequired,
   startDate: PropTypes.instanceOf(Date).isRequired,
-  prizes: PropTypes.shape({}).isRequired,
+  prizes: PropTypes.objectOf(PropTypes.number).isRequired,
 };
 
 OngoingDraw.defaultProps = {

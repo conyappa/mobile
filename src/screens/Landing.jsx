@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
 import useAsync from 'react-use/lib/useAsync';
-import useAsyncFn from 'react-use/lib/useAsyncFn';
 import { parse } from 'date-fns';
 
 import { StyleUtils } from '@/utils/styles';
