@@ -97,7 +97,9 @@ export default function OngoingDraw({ style }) {
       </ResultsContainer>
       <JackpotContainer>
         <WhiteText>{I18n.t('components.ongoingDraw.jackpotTitle')}</WhiteText>
-        <JackpotText>{prizes && I18n.toCurrency(prizes['7'])}</JackpotText>
+        {
+          prizes && <JackpotText>{I18n.toCurrency(prizes['7'])}</JackpotText>
+        }
       </JackpotContainer>
       <CounterContainer>
         <WhiteText>
