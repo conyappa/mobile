@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
+import useAsync from 'react-use/lib/useAsync';
 import useAsyncFn from 'react-use/lib/useAsyncFn';
+import { parse } from 'date-fns';
 
 import { StyleUtils } from '@/utils/styles';
 
@@ -13,27 +15,58 @@ import OngoingDraw from '@/components/OngoingDraw.jsx';
 export default function Landing({ userId }) {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({});
+  const [results, setResults] = useState([]);
+  const [startDate, setStartDate] = useState(new Date());
+  const [prizes, setPrizes] = useState({});
 
-  function fetchUserData() {
-    setLoading(true);
-    api.users.retrieve(userId)
-      .then(({ data }) => {
-        setUser(data);
-      })
-      .finally(() => setLoading(false));
+  async function fetchUserData() {
+    const { data: userData } = await api.users.retrieve(userId);
+    setUser(userData);
   }
 
-  useEffect(fetchUserData, [userId]);
+  async function fetchOngoingDraw() {
+    const {
+      data: {
+        results: ongoingResults,
+        startDate: ongoingStartDate,
+      },
+    } = await api.draws.retrieveOngoing();
+    setResults(ongoingResults);
+    setStartDate(parse(ongoingStartDate, 'y-MM-dd', new Date()));
+  }
+
+  async function fetchPrizes() {
+    const { data: { prizes: prizesData } } = await api.draws.retrieveMetadata();
+    setPrizes(prizesData);
+  }
+
+  async function fetchAllData() {
+    setLoading(true);
+    await Promise.all([
+      fetchUserData(),
+      fetchOngoingDraw(),
+      fetchPrizes(),
+    ]);
+    setLoading(false);
+  }
+
+  useAsync(fetchUserData, [userId]);
+  useAsync(fetchOngoingDraw, []);
+  useAsync(fetchPrizes, []);
 
   const { balance } = user;
 
   return (
     <ScreenContainer
-      onRefresh={fetchUserData}
+      onRefresh={fetchAllData}
       refreshing={loading}
     >
       <Balance balance={balance} />
-      <SpacedOngoingDraw />
+      <SpacedOngoingDraw
+        results={results}
+        startDate={startDate}
+        prizes={prizes}
+      />
     </ScreenContainer>
   );
 }

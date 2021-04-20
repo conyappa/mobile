@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
@@ -6,17 +6,15 @@ import {
   floor, map, times, toUpper, toString, padStart,
 } from 'lodash';
 import {
-  format, parse, set, isBefore, addDays, differenceInSeconds, isToday,
+  format, set, isBefore, addDays, differenceInSeconds, isToday,
 } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { View } from 'react-native';
 import useInterval from 'react-use/lib/useInterval';
-import useAsync from 'react-use/lib/useAsync';
 
 import {
   COLORS, SPACING, StyleUtils, TEXT_SIZES,
 } from '@/utils/styles';
-import api from '@/api';
 
 import AppText from './AppText.jsx';
 
@@ -38,24 +36,11 @@ const formatTimeValue = (value) => (
   padStart(toString(value), 2, '0')
 );
 
-export default function OngoingDraw({ style }) {
-  const [results, setResults] = useState([]);
-  const [startDate, setStartDate] = useState(new Date());
+export default function OngoingDraw({
+  results, startDate, prizes, style,
+}) {
   const [currentTime, setCurrentTime] = useState(new Date());
-  const { value: prizes } = useAsync(async () => {
-    const { data: { prizes: apiPrizes } } = await api.draws.retrieveMetadata();
-    return apiPrizes;
-  }, []);
 
-  function fetchOngoingDraw() {
-    api.draws.retrieveOngoing()
-      .then(({ data: { results: ongoingResults, startDate: ongoingStartDate } }) => {
-        setResults(ongoingResults);
-        setStartDate(parse(ongoingStartDate, 'y-MM-dd', new Date()));
-      });
-  }
-
-  useEffect(fetchOngoingDraw, []);
   useInterval(() => setCurrentTime(new Date()), 1000);
 
   const resultsSpaces = times(
@@ -98,7 +83,7 @@ export default function OngoingDraw({ style }) {
       <JackpotContainer>
         <WhiteText>{I18n.t('components.ongoingDraw.jackpotTitle')}</WhiteText>
         {
-          prizes && <JackpotText>{I18n.toCurrency(prizes['7'])}</JackpotText>
+          ('7' in prizes) && <JackpotText>{I18n.toCurrency(prizes['7'])}</JackpotText>
         }
       </JackpotContainer>
       <CounterContainer>
@@ -149,6 +134,9 @@ OngoingDraw.propTypes = {
       ),
     ),
   ]),
+  results: PropTypes.arrayOf(PropTypes.number).isRequired,
+  startDate: PropTypes.instanceOf(Date).isRequired,
+  prizes: PropTypes.shape({}).isRequired,
 };
 
 OngoingDraw.defaultProps = {
