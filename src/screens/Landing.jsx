@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
+import useAsyncFn from 'react-use/lib/useAsyncFn';
 
 import { StyleUtils } from '@/utils/styles';
 
@@ -10,12 +11,16 @@ import ScreenContainer from '@/components/containers/PaddedScreenContainer.jsx';
 import OngoingDraw from '@/components/OngoingDraw.jsx';
 
 export default function Landing({ userId }) {
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({});
 
   function fetchUserData() {
-    api.users.retrieve(userId).then(({ data }) => {
-      setUser(data);
-    });
+    setLoading(true);
+    api.users.retrieve(userId)
+      .then(({ data }) => {
+        setUser(data);
+      })
+      .finally(() => setLoading(false));
   }
 
   useEffect(fetchUserData, [userId]);
@@ -23,7 +28,10 @@ export default function Landing({ userId }) {
   const { balance } = user;
 
   return (
-    <ScreenContainer>
+    <ScreenContainer
+      onRefresh={fetchUserData}
+      refreshing={loading}
+    >
       <Balance balance={balance} />
       <SpacedOngoingDraw />
     </ScreenContainer>
