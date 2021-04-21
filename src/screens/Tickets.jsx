@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
-import { map, min } from 'lodash';
+import { isEmpty, map, min } from 'lodash';
 import useAsyncFn from 'react-use/lib/useAsyncFn';
 
 import I18n from 'i18n-js';
@@ -27,20 +27,13 @@ export default function Tickets({ userId }) {
 
   const { count, results: tickets } = value || {};
 
-  if (error) {
-    return (
-      <ScreenContainer>
-        <TitleText>{I18n.t('screens.tickets.error')}</TitleText>
-      </ScreenContainer>
-    );
-  }
-
-  if (count === 0) {
-    return (
-      <ScreenContainer>
-        <TitleText>{I18n.t('screens.tickets.none')}</TitleText>
-      </ScreenContainer>
-    );
+  let title = I18n.t('screens.tickets.title');
+  if (count) {
+    title = I18n.t('screens.tickets.ticketCount', { count });
+  } else if (count === 0) {
+    title = I18n.t('screens.tickets.none');
+  } else if (error) {
+    title = I18n.t('screens.tickets.error');
   }
 
   return (
@@ -48,15 +41,9 @@ export default function Tickets({ userId }) {
       onRefresh={fetchTickets}
       refreshing={loading}
     >
-      <TitleText>
-        {
-          count
-            ? I18n.t('screens.tickets.ticketCount', { count })
-            : I18n.t('screens.tickets.title')
-        }
-      </TitleText>
+      <TitleText>{title}</TitleText>
       {
-        tickets && (
+        !isEmpty(tickets) && (
           <>
             <AppText>
               {I18n.t('screens.tickets.topTickets', { count: min([tickets.length, SHOWN_TICKETS]) })}
