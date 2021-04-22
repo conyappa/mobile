@@ -16,7 +16,7 @@
     "expo-clipboard": "~1.0.1",
     "expo-constants": "~9.3.3",
     "expo-localization": "~9.1.0",
-    "expo-notifications": "^0.11.5",
+    "expo-notifications": "~0.8.2",
     "expo-splash-screen": "~0.8.1",
     "expo-status-bar": "~1.0.3",
     "humps": "^2.0.1",
