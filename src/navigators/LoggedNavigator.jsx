@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { StatusBar } from 'expo-status-bar';
 
 import { COLORS, ICON_SIZES } from '@/utils/styles';
+import useDeviceRegistration from '@/hooks/useDeviceRegistration';
 
 import Bank from '@/screens/Bank.jsx';
 import Tickets from '@/screens/Tickets.jsx';
@@ -31,6 +32,8 @@ function getTabBarIconFunction(IconComponent, name) {
 }
 
 export default function LoggedNavigator({ logout, userId }) {
+  useDeviceRegistration(userId);
+
   return (
     <NavigationContainer>
       <StatusBar style="dark" />
