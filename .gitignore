@@ -1,4 +1,4 @@
-# expo/react native stuff
+# Expo and React Native.
 .expo
 *.jks
 *.p8
@@ -8,13 +8,16 @@
 *.orig.*
 web-build
 
-# npm/yarn stuff
+# Node.
 node_modules
 npm-debug.*
 yarn-error.log
 
-# macOS stuff
+# macOS.
 .DS_Store
 
-# environment stuff
+# Local environment.
 .env
+
+# Secrets.
+google-services.json
