@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "1089740285474",
+    "project_id": "con-yappa",
+    "storage_bucket": "con-yappa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1089740285474:android:a900535a29b88153f68c7b",
+        "android_client_info": {
+          "package_name": "com.conyappa.conyappa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1089740285474-e9ihovkf4m9ij8blofvflf6a0grjmloe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.conyappa.conyappa",
+            "certificate_hash": "4a845546d81d607a50e2110f4aba2ca186f9bb79"
+          }
+        },
+        {
+          "client_id": "1089740285474-iae2dd4juq4603sskast0nqtr79bbf2r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBK_7U3BNr_i2xuTJArsqbGxpqHoV9f_Tc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1089740285474-iae2dd4juq4603sskast0nqtr79bbf2r.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1089740285474-02dqb9qgpur27bf8g3655kpp94p4esn5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.conyappa.conyappa"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
