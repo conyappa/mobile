@@ -17,7 +17,6 @@ export default function MainNavigator() {
         await SplashScreen.hideAsync();
       }
     }
-
     hideSplash();
   }, [checkedLocal]);
 
