@@ -37,7 +37,8 @@ const SIGNUP_FIELDS = [
     autoCapitalize: 'none',
   },
   { name: 'firstName', rules: { required: true }, autoCapitalize: 'words' },
-  { name: 'lastName', rules: { required: true }, autoCapitalize: 'words' },
+  { name: 'fatherLastName', rules: { required: true }, autoCapitalize: 'words' },
+  { name: 'motherLastName', rules: { required: true }, autoCapitalize: 'words' },
   {
     name: 'rut',
     rules: { required: true, validate: { rutValidate }, setValueAs: rutClean },
@@ -60,6 +61,22 @@ function getCheckDigit(rut) {
     return 10;
   }
   return toInteger(digit);
+}
+
+function parseSignupForm(formResponse) {
+  const {
+    rut: completeRut,
+    fatherLastName,
+    motherLastName,
+    ...rest
+  } = formResponse;
+  const checkDigit = getCheckDigit(completeRut);
+  const rut = toInteger(completeRut.slice(0, completeRut.length - 1));
+  const lastName = `${fatherLastName} ${motherLastName}`;
+
+  return {
+    ...rest, rut, checkDigit, lastName,
+  };
 }
 
 export default function Signup({ login }) {
@@ -106,11 +123,10 @@ export default function Signup({ login }) {
 
   function onSubmit(data) {
     setRegistering(true);
-    const { email, password, rut: completeRut } = data;
-    const checkDigit = getCheckDigit(completeRut);
-    const rut = toInteger(completeRut.slice(0, completeRut.length - 1));
+    const { email, password } = data;
+    const parsedForm = parseSignupForm(data);
 
-    api.users.create({ ...data, rut, checkDigit })
+    api.users.create(parsedForm)
       .then(() => {
         setAlert(I18n.t('session.signupSuccess'));
         reset();

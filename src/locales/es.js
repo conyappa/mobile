@@ -24,8 +24,10 @@ const es = {
   },
   user: {
     email: 'Email',
-    firstName: 'Nombre',
-    lastName: 'Apellido',
+    firstName: 'Nombres',
+    lastName: 'Apellidos',
+    fatherLastName: 'Apellido paterno',
+    motherLastName: 'Apellido materno',
     rut: 'RUT',
     password: 'Contraseña',
     balance: 'Saldo',
