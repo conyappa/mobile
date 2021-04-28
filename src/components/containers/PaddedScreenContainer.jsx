@@ -35,6 +35,5 @@ PaddedScreenContainer.defaultProps = {
 
 const Container = styled.View`
   ${StyleUtils.spacedX()}
-  ${StyleUtils.spacedTop('lg')}
-  ${StyleUtils.spacedBottom()}
+  ${StyleUtils.spacedY('sm')}
 `;
