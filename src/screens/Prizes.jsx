@@ -47,7 +47,7 @@ export default function Prizes() {
                     { matches }
                   </WhiteText>
                   <PrizeText>
-                    { I18n.toCurrency(prize) }
+                    { I18n.toCurrency(prize.value) }
                   </PrizeText>
                 </PrizeContainer>
               ),

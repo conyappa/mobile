@@ -33,7 +33,7 @@ export default function Ticket({ ticket: { picks, prize }, style }) {
       </PicksContainer>
       <PrizeContainer>
         <PrizeText>
-          {`$ ${prize}`}
+          {`$ ${prize.value}`}
         </PrizeText>
       </PrizeContainer>
     </Container>
@@ -48,7 +48,10 @@ Ticket.propTypes = {
         inResults: PropTypes.bool,
       }),
     ),
-    prize: PropTypes.number,
+    prize: PropTypes.shape({
+      value: PropTypes.number,
+      isShared: PropTypes.bool,
+    }),
   }).isRequired,
   style: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.object),
