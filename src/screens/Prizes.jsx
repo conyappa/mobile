@@ -1,29 +1,28 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components/native';
-import useAsyncFn from 'react-use/lib/useAsyncFn';
-import { map } from 'lodash';
+import { map, reverse, toArray } from 'lodash';
 import I18n from 'i18n-js';
+import { useQuery, useQueryClient } from 'react-query';
+import { MaterialIcons } from '@expo/vector-icons';
 
-import { StyleUtils, COLORS } from '@/utils/styles';
+import { StyleUtils, COLORS, SPACING } from '@/utils/styles';
 import api from '@/api';
+import { PRIZES_QUERY_KEY } from '@/utils/constants';
 
 import AppText from '@/components/AppText.jsx';
 import ScreenContainer from '@/components/containers/PaddedScreenContainer.jsx';
 
 export default function Prizes() {
-  const [{ loading, value: prizes }, fetchPrizes] = useAsyncFn(async () => {
-    const { data: { prizes: apiPrizes } } = await api.draws.retrieveMetadata();
-    return apiPrizes;
-  }, []);
-
-  useEffect(() => {
-    fetchPrizes();
-  }, [fetchPrizes]);
+  const {
+    data: { prizes = [] } = {},
+    isLoading,
+  } = useQuery(PRIZES_QUERY_KEY, api.draws.retrieveMetadata);
+  const queryClient = useQueryClient();
 
   return (
     <ScreenContainer
-      onRefresh={fetchPrizes}
-      refreshing={loading}
+      onRefresh={() => queryClient.refetchQueries([PRIZES_QUERY_KEY])}
+      refreshing={isLoading}
     >
       <TitleText>{ I18n.t('screens.prizes.title') }</TitleText>
       <AppText>{ I18n.t('screens.prizes.text') }</AppText>
@@ -40,15 +39,20 @@ export default function Prizes() {
             </PrizeHeader>
             {
             map(
-              prizes,
-              (prize, matches) => (
+              reverse(toArray(prizes)),
+              ({ value, isShared }, matches) => (
                 <PrizeContainer key={`${matches}-matches-prize`}>
                   <WhiteText>
                     { matches }
                   </WhiteText>
-                  <PrizeText>
-                    { I18n.toCurrency(prize) }
-                  </PrizeText>
+                  <Prize>
+                    <PrizeText>
+                      { I18n.toCurrency(value) }
+                    </PrizeText>
+                    {
+                      isShared && <SharedIcon name="group" />
+                    }
+                  </Prize>
                 </PrizeContainer>
               ),
             )
@@ -56,6 +60,10 @@ export default function Prizes() {
           </PrizesContainer>
         )
       }
+      <SharedDisclaimer>
+        <SharedDisclaimerIcon name="group" size={SPACING.md} />
+        <DisclaimerText>{ I18n.t('screens.prizes.sharedDisclaimer') }</DisclaimerText>
+      </SharedDisclaimer>
     </ScreenContainer>
   );
 }
@@ -65,7 +73,6 @@ const TitleText = styled(AppText)`
 `;
 
 const PrizesContainer = styled.View`
-  display: flex;
   ${StyleUtils.spacedTop()}
 `;
 
@@ -91,7 +98,33 @@ const WhiteText = styled(AppText)`
   color: white;
 `;
 
+const Prize = styled.View`
+  align-items: center;
+  flex-direction: row;
+`;
+
 const PrizeText = styled(AppText)`
   color: ${COLORS.green};
   font-weight: 600;
+`;
+
+const SharedIcon = styled(MaterialIcons)`
+  color: ${COLORS.green};
+  ${StyleUtils.spacedLeft('xs')}
+`;
+
+const SharedDisclaimer = styled.View`
+  align-items: center;
+  flex-direction: row;
+  ${StyleUtils.spacedTop('lg')}
+`;
+
+const DisclaimerText = styled(AppText)`
+  ${StyleUtils.fontSize('sm')}
+  width: 90%;
+`;
+
+const SharedDisclaimerIcon = styled(MaterialIcons)`
+  color: ${COLORS.blue};
+  width: 10%;
 `;
