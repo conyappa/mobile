@@ -1,22 +1,26 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
-
 import { map } from 'lodash';
+import I18n from 'i18n-js';
+
 import {
   COLORS, StyleUtils, TEXT_SIZES,
 } from '@/utils/styles';
 
+import { MaterialIcons } from '@expo/vector-icons';
 import AppText from './AppText.jsx';
 
-export default function Ticket({ ticket: { picks, prize }, style }) {
+export default function Ticket(
+  { ticket: { picks, prize: { value: prizeValue, isShared } }, style },
+) {
   return (
     <Container style={style}>
       <PicksContainer>
         {
         map(
           picks,
-          ({ value, inResults }, index) => (
+          ({ value: pickValue, inResults }, index) => (
             <PickContainer
               key={`pick-${index}`}
               inResults={inResults}
@@ -24,7 +28,7 @@ export default function Ticket({ ticket: { picks, prize }, style }) {
               <PickText
                 inResults={inResults}
               >
-                {value}
+                {pickValue}
               </PickText>
             </PickContainer>
           ),
@@ -33,8 +37,11 @@ export default function Ticket({ ticket: { picks, prize }, style }) {
       </PicksContainer>
       <PrizeContainer>
         <PrizeText>
-          {`$ ${prize}`}
+          { I18n.toCurrency(prizeValue) }
         </PrizeText>
+        {
+          isShared && <SharedIcon name="group" />
+        }
       </PrizeContainer>
     </Container>
   );
@@ -48,7 +55,10 @@ Ticket.propTypes = {
         inResults: PropTypes.bool,
       }),
     ),
-    prize: PropTypes.number,
+    prize: PropTypes.shape({
+      value: PropTypes.number,
+      isShared: PropTypes.bool,
+    }),
   }).isRequired,
   style: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.object),
@@ -94,7 +104,9 @@ const PickText = styled(AppText)`
 `;
 
 const PrizeContainer = styled.View`
+  align-items: center;
   background-color: ${COLORS.lightGreen};
+  flex-direction: row;
   ${StyleUtils.spacedTop('sm')}
   ${StyleUtils.paddedY('xs')}
   ${StyleUtils.paddedX('sm')}
@@ -103,4 +115,9 @@ const PrizeContainer = styled.View`
 
 const PrizeText = styled(AppText)`
   color: ${COLORS.blue};
+`;
+
+const SharedIcon = styled(MaterialIcons)`
+  color: ${COLORS.blue};
+  ${StyleUtils.spacedLeft('xs')}
 `;
