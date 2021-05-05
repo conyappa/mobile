@@ -39,6 +39,7 @@ export const StyleUtils = {
   spacedBottom: (size = 'md') => `margin-bottom: ${SPACING[size]}px;`,
   spacedY: (size = 'md') => `margin-top: ${SPACING[size]}px; margin-bottom: ${SPACING[size]}px;`,
   spacedX: (size = 'md') => `margin-left: ${SPACING[size]}px; margin-right: ${SPACING[size]}px;`,
+  spacedLeft: (size = 'md') => `margin-left: ${SPACING[size]}px`,
   padded: (size = 'md') => `padding: ${SPACING[size]}px;`,
   paddedTop: (size = 'md') => `padding-top: ${SPACING[size]}px;`,
   paddedY: (size = 'md') => `padding-top: ${SPACING[size]}px; padding-bottom: ${SPACING[size]}px;`,

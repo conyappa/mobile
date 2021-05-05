@@ -5,18 +5,20 @@ import useAsync from 'react-use/lib/useAsync';
 import { parse } from 'date-fns';
 
 import { StyleUtils } from '@/utils/styles';
+import { PRIZES_QUERY_KEY } from '@/utils/constants';
 
 import api from '@/api/index';
 import Balance from '@/components/Balance.jsx';
 import ScreenContainer from '@/components/containers/PaddedScreenContainer.jsx';
 import OngoingDraw from '@/components/OngoingDraw.jsx';
+import { useQueryClient } from 'react-query';
 
 export default function Landing({ userId }) {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({});
   const [results, setResults] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
-  const [prizes, setPrizes] = useState({});
+  const queryClient = useQueryClient();
 
   async function fetchUserData() {
     const { data: userData } = await api.users.retrieve(userId);
@@ -34,24 +36,18 @@ export default function Landing({ userId }) {
     setStartDate(parse(ongoingStartDate, 'y-MM-dd', new Date()));
   }
 
-  async function fetchPrizes() {
-    const { data: { prizes: prizesData } } = await api.draws.retrieveMetadata();
-    setPrizes(prizesData);
-  }
-
   async function fetchAllData() {
     setLoading(true);
     await Promise.all([
       fetchUserData(),
       fetchOngoingDraw(),
-      fetchPrizes(),
+      queryClient.refetchQueries([PRIZES_QUERY_KEY]),
     ]);
     setLoading(false);
   }
 
   useAsync(fetchUserData, [userId]);
   useAsync(fetchOngoingDraw, []);
-  useAsync(fetchPrizes, []);
 
   const { balance } = user;
 
@@ -64,7 +60,6 @@ export default function Landing({ userId }) {
       <SpacedOngoingDraw
         results={results}
         startDate={startDate}
-        prizes={prizes}
       />
     </ScreenContainer>
   );

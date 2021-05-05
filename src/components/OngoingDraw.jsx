@@ -11,10 +11,13 @@ import {
 import { es } from 'date-fns/locale';
 import { View } from 'react-native';
 import useInterval from 'react-use/lib/useInterval';
+import { useQuery } from 'react-query';
 
+import api from '@/api/index';
 import {
   COLORS, SPACING, StyleUtils, TEXT_SIZES,
 } from '@/utils/styles';
+import { PRIZES_QUERY_KEY } from '../utils/constants';
 
 import AppText from './AppText.jsx';
 
@@ -35,13 +38,15 @@ function getNextPickDate() {
 const formatTimeValue = (value) => (
   padStart(toString(value), 2, '0')
 );
-
 export default function OngoingDraw({
-  results, startDate, prizes, style,
+  results, startDate, style,
 }) {
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useInterval(() => setCurrentTime(new Date()), 1000);
+
+  const { data: { prizes = {} } = {} } = useQuery(PRIZES_QUERY_KEY, api.draws.retrieveMetadata);
+  const { value: jackpotPrizeValue = null } = prizes['7'] || {};
 
   const resultsSpaces = times(
     7,
@@ -83,7 +88,9 @@ export default function OngoingDraw({
       <JackpotContainer>
         <WhiteText>{I18n.t('components.ongoingDraw.jackpotTitle')}</WhiteText>
         {
-          ('7' in prizes) && <JackpotText>{I18n.toCurrency(prizes['7'].value)}</JackpotText>
+          jackpotPrizeValue !== null && (
+            <JackpotText>{I18n.toCurrency(jackpotPrizeValue)}</JackpotText>
+          )
         }
       </JackpotContainer>
       <CounterContainer>
@@ -136,12 +143,6 @@ OngoingDraw.propTypes = {
   ]),
   results: PropTypes.arrayOf(PropTypes.number).isRequired,
   startDate: PropTypes.instanceOf(Date).isRequired,
-  prizes: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.number,
-      isShared: PropTypes.number,
-    }),
-  ).isRequired,
 };
 
 OngoingDraw.defaultProps = {
