@@ -24,7 +24,7 @@ nano .env  # or your editor of choice
 
 Please note that there are 4 possible environmental variables that you can modify:
 
-- `DEVELOPMENT_URL`: Defines the development URL of the app. This URL gets used when the app is running on development mode. Defaults to `http://{local-machine-ip}:8000/v1`, where `{local-machine-ip}` corresponds to the IP on the local network of the machine that started the `expo` server.
+- `DEVELOPMENT_URL`: Defines the development URL of the app. This URL gets used when the app is running on development mode. Defaults to `http://{local-machine-ip}:8000/v2`, where `{local-machine-ip}` corresponds to the IP on the local network of the machine that started the `expo` server.
 - `STAGING_URL`: Defines the staging URL of the app. This URL gets used when the app is not running on development mode and when the release channel is not `production`.
 - `PRODUCTION_URL`: Defines the production URL of the app. This URL gets used when the app is not running on development mode and when the release channel is `production`.
 

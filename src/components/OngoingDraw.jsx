@@ -83,7 +83,7 @@ export default function OngoingDraw({
       <JackpotContainer>
         <WhiteText>{I18n.t('components.ongoingDraw.jackpotTitle')}</WhiteText>
         {
-          ('7' in prizes) && <JackpotText>{I18n.toCurrency(prizes['7'])}</JackpotText>
+          ('7' in prizes) && <JackpotText>{I18n.toCurrency(prizes['7'].value)}</JackpotText>
         }
       </JackpotContainer>
       <CounterContainer>
@@ -136,7 +136,12 @@ OngoingDraw.propTypes = {
   ]),
   results: PropTypes.arrayOf(PropTypes.number).isRequired,
   startDate: PropTypes.instanceOf(Date).isRequired,
-  prizes: PropTypes.objectOf(PropTypes.number).isRequired,
+  prizes: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.number,
+      isShared: PropTypes.number,
+    }),
+  ).isRequired,
 };
 
 OngoingDraw.defaultProps = {
