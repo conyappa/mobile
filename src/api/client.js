@@ -7,7 +7,7 @@ import { STAGING_BASE_URL, PRODUCTION_BASE_URL } from '@/utils/constants';
 let baseURL;
 
 const defaultHost = Constants.manifest.debuggerHost ? Constants.manifest.debuggerHost.split(':').shift() : 'localhost';
-const developmentURL = Constants.manifest.extra.DEVELOPMENT_URL || `http://${defaultHost}:8000/v1`;
+const developmentURL = Constants.manifest.extra.DEVELOPMENT_URL || `http://${defaultHost}:8000/v2`;
 
 if (__DEV__) { // eslint-disable-line no-undef
   baseURL = developmentURL;
