@@ -81,7 +81,7 @@ const es = {
       text: 'Los premios por boleto, dependiendo de la cantidad de aciertos de dicho boleto, son los siguientes:',
       matches: 'Aciertos',
       prize: 'Premio',
-      sharedDisclaimer: 'Los premios grandes serán divididos si hay más de un ganador',
+      sharedDisclaimer: 'Los premios grandes serán divididos si hay más de un ganador.',
     },
   },
   components: {
