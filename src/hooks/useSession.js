@@ -4,9 +4,11 @@ import * as SecureStore from 'expo-secure-store';
 import api from '@/api';
 import { getData, removeData, storeData } from '@/utils/local-storage';
 
-const ACCESS_SECURE_STORE_KEY = 'accessSecureStoreKey';
-const REFRESH_SECURE_STORE_KEY = 'refreshSecureStoreKey';
-const USER_ID_STORAGE_KEY = 'userIdStorageKey';
+import {
+  ACCESS_SECURE_STORE_KEY,
+  REFRESH_SECURE_STORE_KEY,
+  USER_ID_STORAGE_KEY,
+} from '@/utils/constants';
 
 export default function useSession() {
   const [isLogged, setIsLogged] = useState(false);

@@ -2,6 +2,7 @@ import axios from 'axios';
 import { camelizeKeys, decamelizeKeys } from 'humps';
 import Constants from 'expo-constants';
 
+import authHelpers from '@/utils/auth';
 import { STAGING_BASE_URL, PRODUCTION_BASE_URL } from '@/utils/constants';
 
 let baseURL;
@@ -33,9 +34,14 @@ const client = axios.create({
   ],
 });
 
-client.interceptors.request.use((config) => {
-  const { params } = config;
-  return { ...config, params: decamelizeKeys(params) };
+client.interceptors.request.use(async (config) => {
+  const authHeaders = await authHelpers.getAuthHeaders();
+  const { params, headers } = config;
+  return {
+    ...config,
+    params: decamelizeKeys(params),
+    headers: { ...headers, ...authHeaders },
+  };
 });
 
 export default client;
