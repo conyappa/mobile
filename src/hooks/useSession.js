@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
+import * as SecureStore from 'expo-secure-store';
 
 import api from '@/api';
 import { getData, removeData, storeData } from '@/utils/local-storage';
 
-const TOKEN_STORAGE_KEY = 'tokenStorageKey';
+const ACCESS_SECURE_STORE_KEY = 'accessSecureStoreKey';
+const REFRESH_SECURE_STORE_KEY = 'refreshSecureStoreKey';
 const USER_ID_STORAGE_KEY = 'userIdStorageKey';
 
 export default function useSession() {
@@ -11,21 +13,20 @@ export default function useSession() {
   const [userId, setUserId] = useState(null);
   const [checkedLocal, setCheckedLocal] = useState(false);
 
-  function setCredentials(token, id) {
-    api.auth.setToken(token);
-
-    // Call setUserId before calling setIsLogged
-    // so the LoggedNavigator is only rendered
-    // with a valid userId (not null).
-    setUserId(id);
-    setIsLogged(api.auth.isLogged());
+  async function setCredentials(accessToken, refreshToken) {
+    await Promise.all([
+      SecureStore.setItemAsync(ACCESS_SECURE_STORE_KEY, accessToken),
+      SecureStore.setItemAsync(REFRESH_SECURE_STORE_KEY, refreshToken),
+    ]);
   }
 
   async function login(email, password) {
     try {
-      const { data: { token, id } = {} } = await api.auth.login(email, password);
-      setCredentials(token, id);
-      storeData({ [TOKEN_STORAGE_KEY]: token, [USER_ID_STORAGE_KEY]: id });
+      const { data: { access, refresh, id } = {} } = await api.auth.login(email, password);
+      await setCredentials(access, refresh);
+      await storeData({ [USER_ID_STORAGE_KEY]: id });
+      setUserId(id);
+      setIsLogged(true);
       return {};
     } catch (error) {
       const processedError = (
@@ -37,30 +38,35 @@ export default function useSession() {
     }
   }
 
-  function logout() {
-    api.auth.resetToken();
+  async function logout() {
+    await Promise.all([
+      SecureStore.deleteItemAsync(ACCESS_SECURE_STORE_KEY),
+      SecureStore.deleteItemAsync(REFRESH_SECURE_STORE_KEY),
+      removeData([USER_ID_STORAGE_KEY]),
+    ]);
 
-    // Call setIsLogged before calling setUserId
-    // so the LoggedNavigator is only rendered
-    // with a valid userId (not null).
-    setIsLogged(api.auth.isLogged());
+    setIsLogged(false);
     setUserId(null);
-    removeData([TOKEN_STORAGE_KEY, USER_ID_STORAGE_KEY]);
   }
 
   useEffect(() => {
-    async function retrieveCredentials() {
-      const {
-        [TOKEN_STORAGE_KEY]: token,
-        [USER_ID_STORAGE_KEY]: id,
-      } = await getData([TOKEN_STORAGE_KEY, USER_ID_STORAGE_KEY]);
-      if (token && id) {
-        setCredentials(token, id);
+    async function refreshCredentials() {
+      try {
+        const [refreshToken, id] = await Promise.all([
+          SecureStore.getItemAsync(REFRESH_SECURE_STORE_KEY),
+          getData(USER_ID_STORAGE_KEY),
+        ]);
+        const { data: { access, refresh } = {} } = await api.auth.refresh(refreshToken);
+        await setCredentials(access, refresh);
+        setUserId(id);
+        setIsLogged(true);
+      } catch (err) {
+        setIsLogged(false);
       }
-      setCheckedLocal(true);
     }
 
-    retrieveCredentials();
+    refreshCredentials();
+    setCheckedLocal(true);
   }, []);
 
   return {

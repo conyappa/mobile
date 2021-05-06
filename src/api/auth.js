@@ -1,16 +1,8 @@
 import client from './client';
 
 const auth = {
-  isLogged() {
-    return !!client.defaults.headers.common.Authorization;
-  },
-  setToken(token) {
-    client.defaults.headers.common.Authorization = `Bearer ${token}`;
-  },
-  resetToken() {
-    delete client.defaults.headers.common.Authorization;
-  },
-  login: (email, password) => client.post('login', { email, password }),
+  login: (email, password) => client.post('auth/login', { email, password }),
+  refresh: (refresh) => client.post('auth/refresh', { refresh }),
 };
 
 export default auth;
