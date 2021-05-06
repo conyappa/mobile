@@ -54,9 +54,9 @@ export default function useSession() {
   useEffect(() => {
     async function refreshCredentials() {
       try {
-        const [refreshToken, id] = await Promise.all([
+        const [refreshToken, { [USER_ID_STORAGE_KEY]: id }] = await Promise.all([
           SecureStore.getItemAsync(REFRESH_SECURE_STORE_KEY),
-          getData(USER_ID_STORAGE_KEY),
+          getData([USER_ID_STORAGE_KEY]),
         ]);
         const { data: { access, refresh } = {} } = await api.auth.refresh(refreshToken);
         await setCredentials(access, refresh);
@@ -65,10 +65,10 @@ export default function useSession() {
       } catch (err) {
         setIsLogged(false);
       }
+      setCheckedLocal(true);
     }
 
     refreshCredentials();
-    setCheckedLocal(true);
   }, []);
 
   return {
