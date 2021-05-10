@@ -25,11 +25,11 @@ export default function Tickets({ userId }) {
     fetchTickets();
   }, [fetchTickets, userId]);
 
-  const { count, results: tickets } = value || {};
+  const { count, totalPrize, results: tickets } = value || {};
 
   let title = I18n.t('screens.tickets.title');
   if (count) {
-    title = I18n.t('screens.tickets.ticketCount', { count });
+    title = I18n.t('screens.tickets.ticketCount', { count, prize: 13000 });
   } else if (count === 0) {
     title = I18n.t('screens.tickets.none');
   } else if (error) {
@@ -42,6 +42,9 @@ export default function Tickets({ userId }) {
       refreshing={loading}
     >
       <TitleText>{title}</TitleText>
+      <AppText>
+        {I18n.t('screens.tickets.totalPrize', { totalPrize })}
+      </AppText>
       {
         !isEmpty(tickets) && (
           <>
