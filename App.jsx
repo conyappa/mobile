@@ -6,6 +6,8 @@ import setupLocalization from './src/locales';
 
 import MainNavigator from './src/navigators/MainNavigator.jsx';
 
+import { StoreSessionProvider } from './src/store/session.jsx';
+
 setupLocalization();
 
 const queryClient = new QueryClient({
@@ -21,7 +23,9 @@ LogBox.ignoreLogs(['Setting a timer']);
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <MainNavigator />
+      <StoreSessionProvider>
+        <MainNavigator />
+      </StoreSessionProvider>
     </QueryClientProvider>
   );
 }

@@ -3,6 +3,7 @@ import * as SecureStore from 'expo-secure-store';
 
 import api from '@/api';
 import { getData, removeData, storeData } from '@/utils/local-storage';
+import { useStoreSession } from '@/store/session.jsx';
 
 import {
   ACCESS_SECURE_STORE_KEY,
@@ -11,7 +12,7 @@ import {
 } from '@/utils/constants';
 
 export default function useSession() {
-  const [isLogged, setIsLogged] = useState(false);
+  const [, setIsLoggedIn] = useStoreSession();
   const [userId, setUserId] = useState(null);
   const [checkedLocal, setCheckedLocal] = useState(false);
 
@@ -28,7 +29,7 @@ export default function useSession() {
       await setCredentials(access, refresh);
       await storeData({ [USER_ID_STORAGE_KEY]: id });
       setUserId(id);
-      setIsLogged(true);
+      setIsLoggedIn(true);
       return {};
     } catch (error) {
       const processedError = (
@@ -47,7 +48,7 @@ export default function useSession() {
       removeData([USER_ID_STORAGE_KEY]),
     ]);
 
-    setIsLogged(false);
+    setIsLoggedIn(false);
     setUserId(null);
   }
 
@@ -61,17 +62,17 @@ export default function useSession() {
         const { data: { access, refresh } = {} } = await api.auth.refresh(refreshToken);
         await setCredentials(access, refresh);
         setUserId(id);
-        setIsLogged(true);
+        setIsLoggedIn(true);
       } catch (err) {
-        setIsLogged(false);
+        setIsLoggedIn(false);
       }
       setCheckedLocal(true);
     }
 
     refreshCredentials();
-  }, []);
+  }, [setIsLoggedIn]);
 
   return {
-    login, logout, isLogged, userId, checkedLocal,
+    login, logout, userId, checkedLocal,
   };
 }
