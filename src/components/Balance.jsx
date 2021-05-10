@@ -7,32 +7,37 @@ import { COLORS, StyleUtils } from '@/utils/styles';
 
 import AppText from './AppText.jsx';
 
-export default function Balance({ balance }) {
-  function getBalance(unknownBalance) {
-    if (unknownBalance === undefined) {
-      return `${I18n.t('misc.loading')}...`;
-    }
-    return I18n.toCurrency(unknownBalance, { delimiter: '.', precision: 0 });
+function getAmount(unknownAmount) {
+  if (unknownAmount === undefined) {
+    return `${I18n.t('misc.loading')}...`;
   }
+  return I18n.toCurrency(unknownAmount, { delimiter: '.', precision: 0 });
+}
 
+export default function Balance({ balance, winnings }) {
   return (
     <Container>
       <TitleText>
         {I18n.t('user.balance')}
       </TitleText>
       <BalanceText>
-        { getBalance(balance) }
+        { getAmount(balance) }
       </BalanceText>
+      <AppText>
+        {I18n.t('user.winnings', { winnings: getAmount(winnings) })}
+      </AppText>
     </Container>
   );
 }
 
 Balance.propTypes = {
   balance: PropTypes.number,
+  winnings: PropTypes.number,
 };
 
 Balance.defaultProps = {
   balance: undefined,
+  winnings: undefined,
 };
 
 const Container = styled.View`

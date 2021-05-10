@@ -49,14 +49,14 @@ export default function Landing({ userId }) {
   useAsync(fetchUserData, [userId]);
   useAsync(fetchOngoingDraw, []);
 
-  const { balance } = user;
+  const { balance, winnings } = user;
 
   return (
     <ScreenContainer
       onRefresh={fetchAllData}
       refreshing={loading}
     >
-      <Balance balance={balance} />
+      <Balance balance={balance} winnings={winnings} />
       <SpacedOngoingDraw
         results={results}
         startDate={startDate}

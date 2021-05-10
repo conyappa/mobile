@@ -31,6 +31,7 @@ const es = {
     rut: 'RUT',
     password: 'Contraseña',
     balance: 'Saldo',
+    winnings: 'Ganancias históricas: %{winnings}',
   },
   errorMessage: {
     required: '%{name} no puede estar vacío',
