@@ -53,7 +53,7 @@ const es = {
     tickets: {
       title: 'Boletos',
       ticketCount: 'Tienes %{count} boletos',
-      totalPrize: 'Esta semana has ganado $%{totalPrize}.',
+      totalPrize: 'Esta semana has ganado %{totalPrize}',
       topTickets: 'Estos son tus top %{count} boletos:',
       none: 'No tienes boletos',
       error: 'Se produjo un error',

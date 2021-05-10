@@ -12,7 +12,15 @@ import AppText from '@/components/AppText.jsx';
 import Ticket from '@/components/Ticket.jsx';
 import ScreenContainer from '@/components/containers/PaddedScreenContainer.jsx';
 
+function getPrize(unknownPrize) {
+  if (unknownPrize === undefined) {
+    return `(${I18n.t('misc.loading')}...)`;
+  }
+  return I18n.toCurrency(unknownPrize, { delimiter: '.', precision: 0 });
+}
+
 const SHOWN_TICKETS = 20;
+
 export default function Tickets({ userId }) {
   const [
     { loading, error, value }, fetchTickets,
@@ -43,7 +51,7 @@ export default function Tickets({ userId }) {
     >
       <TitleText>{title}</TitleText>
       <AppText>
-        {I18n.t('screens.tickets.totalPrize', { totalPrize })}
+        {I18n.t('screens.tickets.totalPrize', { totalPrize: getPrize(totalPrize) })}
       </AppText>
       {
         !isEmpty(tickets) && (
