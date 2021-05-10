@@ -29,7 +29,7 @@ export default function Tickets({ userId }) {
 
   let title = I18n.t('screens.tickets.title');
   if (count) {
-    title = I18n.t('screens.tickets.ticketCount', { count, prize: 13000 });
+    title = I18n.t('screens.tickets.ticketCount', { count });
   } else if (count === 0) {
     title = I18n.t('screens.tickets.none');
   } else if (error) {
