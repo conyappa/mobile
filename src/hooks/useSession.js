@@ -5,23 +5,22 @@ import api from '@/api';
 import { getData, removeData, storeData } from '@/utils/local-storage';
 import { useStoreSession } from '@/store/session.jsx';
 
-import {
-  ACCESS_SECURE_STORE_KEY,
-  REFRESH_SECURE_STORE_KEY,
-  USER_ID_STORAGE_KEY,
-} from '@/utils/constants';
+import { setCredentials, removeCredentials } from '@/utils/credentials';
+import { USER_ID_STORAGE_KEY, REFRESH_SECURE_STORE_KEY } from '@/utils/constants';
+
+const refreshCredentials = async () => {
+  const refreshToken = await SecureStore.getItemAsync(REFRESH_SECURE_STORE_KEY);
+  const { data: { access, refresh } = {} } = await api.auth.refresh(refreshToken);
+  if (!access || !refresh) {
+    throw new Error('Error refreshing the tokens');
+  }
+  await setCredentials(access, refresh);
+};
 
 export default function useSession() {
   const [, setIsLoggedIn] = useStoreSession();
   const [userId, setUserId] = useState(null);
   const [checkedLocal, setCheckedLocal] = useState(false);
-
-  async function setCredentials(accessToken, refreshToken) {
-    await Promise.all([
-      SecureStore.setItemAsync(ACCESS_SECURE_STORE_KEY, accessToken),
-      SecureStore.setItemAsync(REFRESH_SECURE_STORE_KEY, refreshToken),
-    ]);
-  }
 
   async function login(email, password) {
     try {
@@ -43,8 +42,7 @@ export default function useSession() {
 
   async function logout() {
     await Promise.all([
-      SecureStore.deleteItemAsync(ACCESS_SECURE_STORE_KEY),
-      SecureStore.deleteItemAsync(REFRESH_SECURE_STORE_KEY),
+      removeCredentials(),
       removeData([USER_ID_STORAGE_KEY]),
     ]);
 
@@ -53,14 +51,12 @@ export default function useSession() {
   }
 
   useEffect(() => {
-    async function refreshCredentials() {
+    async function refreshInternalCredentials() {
       try {
-        const [refreshToken, { [USER_ID_STORAGE_KEY]: id }] = await Promise.all([
-          SecureStore.getItemAsync(REFRESH_SECURE_STORE_KEY),
+        const [{ [USER_ID_STORAGE_KEY]: id }] = await Promise.all([
           getData([USER_ID_STORAGE_KEY]),
+          refreshCredentials(),
         ]);
-        const { data: { access, refresh } = {} } = await api.auth.refresh(refreshToken);
-        await setCredentials(access, refresh);
         setUserId(id);
         setIsLoggedIn(true);
       } catch (err) {
@@ -69,7 +65,7 @@ export default function useSession() {
       setCheckedLocal(true);
     }
 
-    refreshCredentials();
+    refreshInternalCredentials();
   }, [setIsLoggedIn]);
 
   return {

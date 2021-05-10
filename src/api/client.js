@@ -1,9 +1,15 @@
 import axios from 'axios';
 import { camelizeKeys, decamelizeKeys } from 'humps';
 import Constants from 'expo-constants';
+import * as SecureStore from 'expo-secure-store';
 
-import authHelpers from '@/utils/auth';
-import { STAGING_BASE_URL, PRODUCTION_BASE_URL } from '@/utils/constants';
+import { getAuthHeaders } from '@/utils/auth';
+import { setCredentials, removeCredentials } from '@/utils/credentials';
+import {
+  STAGING_BASE_URL,
+  PRODUCTION_BASE_URL,
+  REFRESH_SECURE_STORE_KEY,
+} from '@/utils/constants';
 
 let baseURL;
 
@@ -35,13 +41,43 @@ const client = axios.create({
 });
 
 client.interceptors.request.use(async (config) => {
-  const authHeaders = await authHelpers.getAuthHeaders();
+  const authHeaders = await getAuthHeaders();
   const { params, headers } = config;
   return {
     ...config,
     params: decamelizeKeys(params),
     headers: { ...headers, ...authHeaders },
   };
+});
+
+client.interceptors.response.use(null, async (error) => {
+  if (
+    error.config
+    && !error.config.url.includes('refresh')
+    && error.response
+    && error.response.status === 401
+  ) {
+    try {
+      const refreshToken = await SecureStore.getItemAsync(REFRESH_SECURE_STORE_KEY);
+      const {
+        data: {
+          access,
+          refresh,
+        } = {},
+      } = await client.post('auth/refresh', { refresh: refreshToken });
+      await setCredentials(access, refresh);
+      const authHeaders = await getAuthHeaders();
+      const { headers } = error.config;
+      return axios.request({
+        ...error.config,
+        headers: { ...headers, ...authHeaders },
+      });
+    } catch (err) {
+      await removeCredentials();
+    }
+  }
+
+  return Promise.reject(error);
 });
 
 export default client;
