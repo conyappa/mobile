@@ -17,15 +17,15 @@ function getAmount(unknownAmount) {
 export default function Balance({ balance, winnings }) {
   return (
     <Container>
-      <TitleText>
+      <UndertonedText>
         {I18n.t('user.balance')}
-      </TitleText>
+      </UndertonedText>
       <BalanceText>
         { getAmount(balance) }
       </BalanceText>
-      <AppText>
+      <UndertonedText>
         {I18n.t('user.winnings', { winnings: getAmount(winnings) })}
-      </AppText>
+      </UndertonedText>
     </Container>
   );
 }
@@ -46,7 +46,7 @@ const Container = styled.View`
   ${StyleUtils.rounded('sm')}
 `;
 
-const TitleText = styled(AppText)`
+const UndertonedText = styled(AppText)`
   color: ${COLORS.darkGreen};
 `;
 
