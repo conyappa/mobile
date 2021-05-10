@@ -3,8 +3,10 @@ import { camelizeKeys, decamelizeKeys } from 'humps';
 import Constants from 'expo-constants';
 import * as SecureStore from 'expo-secure-store';
 
+import $store from '@/store';
 import { getAuthHeaders } from '@/utils/auth';
 import { setCredentials, removeCredentials } from '@/utils/credentials';
+import { setValidSession } from '@/store/session';
 import {
   STAGING_BASE_URL,
   PRODUCTION_BASE_URL,
@@ -74,6 +76,7 @@ client.interceptors.response.use(null, async (error) => {
       });
     } catch (err) {
       await removeCredentials();
+      $store.dispatch(setValidSession(false));
     }
   }
 

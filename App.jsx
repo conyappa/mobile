@@ -1,12 +1,13 @@
 import React from 'react';
 import { LogBox } from 'react-native';
 import { QueryClientProvider, QueryClient } from 'react-query';
+import { Provider } from 'react-redux';
+
+import $store from './src/store';
 
 import setupLocalization from './src/locales';
 
 import MainNavigator from './src/navigators/MainNavigator.jsx';
-
-import { StoreSessionProvider } from './src/store/session.jsx';
 
 setupLocalization();
 
@@ -23,9 +24,9 @@ LogBox.ignoreLogs(['Setting a timer']);
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <StoreSessionProvider>
+      <Provider store={$store}>
         <MainNavigator />
-      </StoreSessionProvider>
+      </Provider>
     </QueryClientProvider>
   );
 }

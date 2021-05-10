@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import * as SecureStore from 'expo-secure-store';
 
 import api from '@/api';
 import { getData, removeData, storeData } from '@/utils/local-storage';
-import { useStoreSession } from '@/store/session.jsx';
-
+import { setValidSession } from '@/store/session';
 import { setCredentials, removeCredentials } from '@/utils/credentials';
 import { USER_ID_STORAGE_KEY, REFRESH_SECURE_STORE_KEY } from '@/utils/constants';
 
@@ -18,9 +18,10 @@ const refreshCredentials = async () => {
 };
 
 export default function useSession() {
-  const [, setIsLoggedIn] = useStoreSession();
   const [userId, setUserId] = useState(null);
   const [checkedLocal, setCheckedLocal] = useState(false);
+
+  const dispatch = useDispatch();
 
   async function login(email, password) {
     try {
@@ -28,7 +29,7 @@ export default function useSession() {
       await setCredentials(access, refresh);
       await storeData({ [USER_ID_STORAGE_KEY]: id });
       setUserId(id);
-      setIsLoggedIn(true);
+      dispatch(setValidSession(true));
       return {};
     } catch (error) {
       const processedError = (
@@ -46,7 +47,7 @@ export default function useSession() {
       removeData([USER_ID_STORAGE_KEY]),
     ]);
 
-    setIsLoggedIn(false);
+    dispatch(setValidSession(false));
     setUserId(null);
   }
 
@@ -58,15 +59,15 @@ export default function useSession() {
           refreshCredentials(),
         ]);
         setUserId(id);
-        setIsLoggedIn(true);
+        dispatch(setValidSession(true));
       } catch (err) {
-        setIsLoggedIn(false);
+        dispatch(setValidSession(false));
       }
       setCheckedLocal(true);
     }
 
     refreshInternalCredentials();
-  }, [setIsLoggedIn]);
+  }, [dispatch]);
 
   return {
     login, logout, userId, checkedLocal,

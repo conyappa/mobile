@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import * as SplashScreen from 'expo-splash-screen';
 
 import useSession from '@/hooks/useSession';
-import { useStoreSession } from '@/store/session.jsx';
 
 import LoggedNavigator from './LoggedNavigator.jsx';
 import SessionNavigator from './SessionNavigator.jsx';
@@ -12,7 +12,7 @@ export default function MainNavigator() {
     login, logout, userId, checkedLocal,
   } = useSession();
 
-  const [isLoggedIn] = useStoreSession();
+  const isLoggedIn = useSelector((state) => state.session.value);
 
   useEffect(() => {
     async function hideSplash() {
